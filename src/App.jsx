@@ -11,9 +11,11 @@ function App() {
      return (
      <main className='App'>
         <h1>Watts My Electrical Bill</h1>
-        <NavLink to="/" className="nav">Search</NavLink>
-        <NavLink to="/login" className="nav">Login</NavLink>
-        <NavLink to="/userId" className="nav">User</NavLink>
+        <nav>
+            <NavLink to="/" className="nav">Search</NavLink>
+            <NavLink to="/login" className="nav">Login</NavLink>
+            <NavLink to="/userId" className="nav">User</NavLink>
+        </nav>
         <Routes>
             <Route path="/" element={<HomeContainer />}/>
             <Route path="/:userId" element={<UserReportsContainer />}>

@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 
 const LoginContainer = () => {
     return (
-            <Link to="/:user_id" className="nav">Login</Link>
+        <nav>
+        <NavLink to="/" className="nav">Search</NavLink>
+        <NavLink to="/:user_id" className="nav">Login</NavLink>
+        </nav>
     )
 }
 export default LoginContainer;

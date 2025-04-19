@@ -7,8 +7,7 @@ import ResultsContainer from './ResultsContainer/ResultsContainer'
 import LoginContainer from './LoginContainer/LoginContainer'
 
 function App() {
-     const [user, setUser] = useState([])
-     const [results, setResults] = useState([])
+
      return (
      <main className='App'>
         <h1>Watts My Electrical Bill</h1>

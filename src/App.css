@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -38,5 +38,28 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: #888; */
+/* } */
+
+.nav {
+  width: 30%;
+}
+
+.active {
+  background-color: #841983;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #A4D555
+}
+
+nav {
+  align-items: center;
+  background-color: #A4D555;
+  display: flex;
+  font-size: 1.5em;
+  height: 10vh;
+  justify-content: space-around;
+  width: 100%;
 }

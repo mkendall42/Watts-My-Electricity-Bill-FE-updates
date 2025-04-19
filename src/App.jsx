@@ -4,6 +4,7 @@ import HomeContainer from './HomeContainer/HomeContainer'
 import './App.css'
 import UserReportsContainer from './UserReportsContainer/UserReportsContainer'
 import ResultsContainer from './ResultsContainer/ResultsContainer'
+import LoginContainer from './LoginContainer/LoginContainer'
 
 function App() {
      const [user, setUser] = useState([])
@@ -11,14 +12,11 @@ function App() {
      return (
      <main className='App'>
         <h1>Watts My Electrical Bill</h1>
-        <nav>
-            <NavLink to="/" className="nav">Search</NavLink>
-            <NavLink to="/login" className="nav">Login</NavLink>
-            <NavLink to="/userId" className="nav">User</NavLink>
-        </nav>
+        
         <Routes>
             <Route path="/" element={<HomeContainer />}/>
-            <Route path="/:userId" element={<UserReportsContainer />}>
+               <Route path='/login' element={<LoginContainer />}/>
+            <Route path="/:user_id" element={<UserReportsContainer />}>
                 <Route path=":id" element={<ResultsContainer />}/>
             </Route>
         </Routes>

@@ -8,23 +8,23 @@ function HomeContainer({ user, results }) {
 
     return (
         <div>
-        <h1>Home container</h1>
-        console.log("homeContainer")
-        {/* <Routes>
-            <Route path="*" element={<HomeContainer />}/>
-            <Route path="/:id" element={<UserReportsContainer />}>
-                <Route path=":id" element={<ResultsContainer />}/>
-        </Route>
-        </Routes> */}
-        <SearchContainer
-        
-        user={user}
-        results={results}
-        />
-        <ResultsContainer
-        user={user}
-        results={results}
-        />
+            <nav>
+            <NavLink to="/" className="nav">Search</NavLink>
+            <NavLink to="/login" className="nav">Login</NavLink>
+            </nav>
+
+            <h1>Home container</h1>
+
+            <SearchContainer
+            user={user}
+            results={results}
+            />
+
+            <ResultsContainer
+            user={user}
+            results={results}
+            />
+
         </div>
     );
 }

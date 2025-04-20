@@ -8,13 +8,11 @@ function HomeContainer() {
     const [user, setUser] = useState([])
     const [results, setResults] = useState([])
     return (
-        <div>
+        <div className='HomeContainer'>
             <nav>
             <NavLink to="/" className="nav">Search</NavLink>
             <NavLink to="/login" className="nav">Login</NavLink>
             </nav>
-
-            <h1>Home container</h1>
 
             <SearchContainer
             user={user}

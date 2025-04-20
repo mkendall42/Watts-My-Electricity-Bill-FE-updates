@@ -1,0 +1,11 @@
+.results {
+    display: flex;
+    flex-direction: column;
+    border: .1em solid aliceblue;
+    padding: .75em;
+}
+
+.values {
+    border: .1em solid aliceblue;
+    padding: .5em;
+}

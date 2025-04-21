@@ -7,12 +7,12 @@ const LoginContainer = () => {
 
             <nav>
                 <NavLink to="/" className="nav">Search</NavLink>
-                <NavLink to="/:user_id" className="nav">Login</NavLink>
+                <NavLink to="/login" className="nav">Login</NavLink>
             </nav>
 
             <form>
                 <input className ="userName"/>
-            <button type="submit">Submit</button>
+            <NavLink to="/:user_id" className="nav">Login</NavLink>
             </form>
 
         </div>

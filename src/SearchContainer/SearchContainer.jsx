@@ -11,27 +11,26 @@ const SearchContainer = () => {
   function submitSearch(event) {
     event.preventDefault();
 
-    const newSearch = {
+		const queryParams = new URLSearchParams({
 			latitude: lat,
-      longitude: long,
-      residence_type: residenceType,
-      num_residents: occupants,
-      energy_usage: energyUsage,
-    };
+			longitude: long,
+			residence_type: residenceType,
+			num_residents: occupants,
+			efficiency_level: energyUsage
+		}).toString();
 
-    fetch('http://localhost:3000/api/utilities', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newSearch)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      clearInput();
-    })
-    .catch(error => console.error('Error:', error));
+		fetch(`http://localhost:3000/api/utilities?${queryParams}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(response => response.json())
+			.then(data => {
+				console.log('Success:', data);
+				clearInput();
+			})
+			.catch(error => console.error('Error:', error));
   }
 
   function clearInput() {

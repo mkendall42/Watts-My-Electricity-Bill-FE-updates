@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './SearchContainer.css';
 
-const SearchContainer = () => {
+const SearchContainer = ({ setResults }) => {
+	const [nickname, setNickname] = useState('');
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
   const [residenceType, setResidenceType] = useState('');
@@ -12,6 +13,7 @@ const SearchContainer = () => {
     event.preventDefault();
 
 		const queryParams = new URLSearchParams({
+			nickname: nickname,
 			latitude: lat,
 			longitude: long,
 			residence_type: residenceType,
@@ -19,21 +21,22 @@ const SearchContainer = () => {
 			efficiency_level: energyUsage
 		}).toString();
 
-		fetch(`http://localhost:3000/api/utilities?${queryParams}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
+		console.log(queryParams)
+
+		fetch(`http://localhost:3000/api/v1/utilities?${queryParams}`, {
 		})
 			.then(response => response.json())
+			.then(data => setResults(data))
 			.then(data => {
 				console.log('Success:', data);
 				clearInput();
 			})
 			.catch(error => console.error('Error:', error));
+
   }
 
   function clearInput() {
+		setNickname('');
     setLat('');
     setLong('');
     setResidenceType('');
@@ -42,7 +45,16 @@ const SearchContainer = () => {
   }
 
   return (
+
     <form onSubmit={submitSearch}>
+      <input
+        type='text'
+        placeholder='Nickname'
+        name='nickname'
+        value={nickname}
+        onChange={e => setNickname(e.target.value)}
+      />
+
       <input
         type='text'
         placeholder='Latitude'

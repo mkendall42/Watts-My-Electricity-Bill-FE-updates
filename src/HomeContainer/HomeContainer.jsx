@@ -1,30 +1,29 @@
 import './HomeContainer.css'
 import SearchContainer from '../SearchContainer/SearchContainer'
 import ResultsContainer from '../ResultsContainer/ResultsContainer'
-import UserReportsContainer from '../UserReportsContainer/UserReportsContainer'
 import { NavLink, Route, Routes } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
-function HomeContainer({ user, results }) {
-
+function HomeContainer() {
+    const [user, setUser] = useState([])
+    const [results, setResults] = useState([])
     return (
-        <div>
-        <h1>Home container</h1>
-        console.log("homeContainer")
-        {/* <Routes>
-            <Route path="*" element={<HomeContainer />}/>
-            <Route path="/:id" element={<UserReportsContainer />}>
-                <Route path=":id" element={<ResultsContainer />}/>
-        </Route>
-        </Routes> */}
-        <SearchContainer
-        
-        user={user}
-        results={results}
-        />
-        <ResultsContainer
-        user={user}
-        results={results}
-        />
+        <div className='HomeContainer'>
+            <nav>
+            <NavLink to="/" className="nav">Search</NavLink>
+            <NavLink to="/login" className="nav">Login</NavLink>
+            </nav>
+
+            <SearchContainer
+            user={user}
+            results={results}
+            />
+
+            <ResultsContainer
+            user={user}
+            results={results}
+            />
+
         </div>
     );
 }

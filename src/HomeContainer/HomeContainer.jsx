@@ -16,7 +16,7 @@ function HomeContainer() {
 
             <SearchContainer
             user={user}
-            results={results}
+            setResults={setResults}
             />
 
             <ResultsContainer

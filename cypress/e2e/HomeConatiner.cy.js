@@ -24,14 +24,10 @@ describe('HomeContainer', () => {
 	})
 
 	it('ResultsContainer', () => {
-	//   cy.get('.ideas-container').should('exist')
-	//   cy.get('.card').should('have.length', 3)
-	//   cy.get('.card').first().find('h3').should('have.text', 'Bluetooth rotary phone')
-	//   cy.get('.card').first().find('p').should('have.text', 'Because it\'s cool as heck and who wants a landline these days')
-	//   cy.get('.card').first().find('button').should('exist')
-	//   cy.get('.card').last().find('h3').should('have.text', 'Waterproof books')
-	//   cy.get('.card').last().find('p').should('have.text', 'For reading in a pool/ocean/bathtub')
-	//   cy.get('.card').first().find('button').should('exist')
+	  cy.get('.results').should('exist')
+	  .get('p').first().should('have.text', 'Your Estimated Energy Usage for undefined')
+	  .get('.results').first().should('have.text', '')
+	  .get('.results').last().should('have.text', '')
 	})
 
 	it('adds a new idea to the list', () => {

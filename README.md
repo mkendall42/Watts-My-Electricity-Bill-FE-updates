@@ -1,4 +1,4 @@
-<h1>Watts My Electricity Bill</h1>
+<h1 align="center">Watts My Electricity Bill</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React Version">

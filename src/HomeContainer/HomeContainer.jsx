@@ -5,26 +5,28 @@ import { NavLink, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 function HomeContainer() {
-    const [user, setUser] = useState([])
-    const [results, setResults] = useState([])
-    return (
-        <div className='HomeContainer'>
-            <nav>
-            <NavLink to="/" className="nav">Search</NavLink>
-            <NavLink to="/login" className="nav">Login</NavLink>
-            </nav>
+	const [user, setUser] = useState([])
+	const [results, setResults] = useState([])
+	return (
+		<div className='HomeContainer'>
+			<div className="left-side">
+				<nav>
+					<NavLink to="/" className="nav">Search</NavLink>
+					<NavLink to="/login" className="nav">Login</NavLink>
+				</nav>
 
-            <SearchContainer
-            user={user}
-            setResults={setResults}
-            />
+				<SearchContainer
+					user={user}
+					setResults={setResults}
+				/>
+			</div>
 
-            <ResultsContainer
-            user={user}
-            results={results}
-            />
+			<ResultsContainer
+				user={user}
+				results={results}
+			/>
 
-        </div>
-    );
+		</div>
+	);
 }
 export default HomeContainer

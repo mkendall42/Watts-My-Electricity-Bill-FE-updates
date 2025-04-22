@@ -2,17 +2,15 @@ import './ResultsContainer.css';
 import useState from 'react';
 
 const ResultsContainer = ({ results }) => {
-		
 		let nickname = results.nickname
-		let nameAndLocation = `Your Estimated Energy Usage for ${nickname} at :`
+		let nameAndLocation = `Your Estimated Energy Usage for ${nickname}`
 		
     return (
-        <section className='results'>
+        <section className='results-window'>
             <p>{nameAndLocation}</p>
                 <section className='values'>
-                    <p>{ results.cost }</p>
-                    <p>Y Timeframe</p>
-                    <p>Z Energy Unit Output</p>
+                    <p className='results'>{ results.cost }</p>
+                    <p className='results'>{ results.energy_consumption }</p>
                 </section>
         </section>
     )

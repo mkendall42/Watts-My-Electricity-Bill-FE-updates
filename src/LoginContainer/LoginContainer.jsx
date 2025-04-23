@@ -1,21 +1,26 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 
 
-const LoginContainer = () => {
-    return (
-        <div>
+const LoginContainer = ({ user, setUser }) => {
+	return (
+		<div>
+			<nav>
+				<NavLink to="/" className="nav">Search</NavLink>
+				<NavLink to="/login" className="nav">Login</NavLink>
+			</nav>
 
-            <nav>
-                <NavLink to="/" className="nav">Search</NavLink>
-                <NavLink to="/login" className="nav">Login</NavLink>
-            </nav>
+			<form>
+				<input className="userName"
+					type='text'
+					placeholder='Username'
+					name='user'
+					value={user}
+					onChange={e => setUser(e.target.value)}
+				/>
+				<Link to="/user" className="nav">Login</Link>
+			</form>
 
-            <form>
-                <input className ="userName"/>
-            <NavLink to="/:user_id" className="nav">Login</NavLink>
-            </form>
-
-        </div>
-    )
+		</div>
+	)
 }
 export default LoginContainer;

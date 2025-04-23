@@ -1,13 +1,14 @@
+import './App.css'
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import HomeContainer from './HomeContainer/HomeContainer'
-import './App.css'
 import UserReportsContainer from './UserReportsContainer/UserReportsContainer'
 import ResultsContainer from './ResultsContainer/ResultsContainer'
 import LoginContainer from './LoginContainer/LoginContainer'
+import UserContainer from './UserContainer/UserContainer'
 
 function App() {
-	const [user, setUser] = useState(null)
+	const [user, setUser] = useState('')
 
 	return (
 		<main className='App'>
@@ -15,7 +16,8 @@ function App() {
 			<Routes>
 				<Route path="/" element={<HomeContainer user={user} />} />
 				<Route path='/login' element={<LoginContainer user={user} setUser={setUser} />} />
-				<Route path="/:report" element={<UserReportsContainer />}>
+				<Route path='/user' element={<UserContainer />} />
+				<Route path="/reports" element={<UserReportsContainer />}>
 					<Route path=":id" element={<ResultsContainer />} />
 				</Route>
 			</Routes>

@@ -8,8 +8,7 @@ import { useState } from 'react';
 
 const ResultsContainer = ({ user, results }) => {
     const [timeframe, setTimeframe] = useState("")
-
-    // debugger
+    const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
 
     let nickname = results.nickname
     let nameAndLocation = `Your Estimated Energy Usage and Costs for ${nickname}`
@@ -17,7 +16,7 @@ const ResultsContainer = ({ user, results }) => {
     //Later later: add utility company associated with this...
 
     const timeframeList = ["Annual", "Monthly"]
-    const utilityRateType = ["Residential", "Commercial", "Industrial"]
+    const utilityRateTypeList = ["Residential", "Commercial", "Industrial"]
 
     //Ensure proper display if erroneous / incopmlete results (NOTE: still not displaying correctly on first page load; works after that)
     if (results === null || results.status === 422) {
@@ -52,13 +51,30 @@ const ResultsContainer = ({ user, results }) => {
     }
 
     const processTimeframeSelection = (item) => {
+        //Later: could just pass the set_ hook
         setTimeframe(item)
         console.log("Item selected: ", item)
     }
 	
     const processUtilityRateTypeSelection = (item) => {
-        // setTimeframe(item)
+        //Same here
+        setUtilityRateType(item)
         console.log("Utility rate type selected: ", item)
+    }
+
+    const calcValueForTimeframe = (value) => {
+        let adjustedValue = 0
+
+        switch (timeframe) {
+            case "Annual":
+                adjustedValue = value
+                break
+            case "Monthly":
+                adjustedValue = value / 12
+                break
+        }       
+
+        return adjustedValue
     }
     
     return (
@@ -66,11 +82,11 @@ const ResultsContainer = ({ user, results }) => {
             <p>{nameAndLocation}</p>
             {/* Call a dropdown container here; then probably need to conditionally render stuff below this */}
             <DropdownMenuContainer key="timeframe" itemsList={timeframeList} defaultText="Select timeframe" processSelection={processTimeframeSelection} />
-            <DropdownMenuContainer key="utility" itemsList={utilityRateType} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
+            <DropdownMenuContainer key="utility" itemsList={utilityRateTypeList} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
             <section className='values'>
-                <p className='results'>{ `Energy consumption: ${results.cost} kWh` }</p>
-                <p className='results'>{ `Energy cost: $${results.energy_consumption}` }</p>
-                <p className='results'>{ "Average state rate: <value goes here> $/kWh" }</p>
+                <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.cost).toFixed(1)} kWh` }</p>
+                <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.energy_consumption).toFixed(2)}` }</p>
+                <p className='results'>{ `Average ${utilityRateType.toLowerCase()} state rate: <value goes here> $/kWh` }</p>
             </section>
             <button onClick={() => saveResults()}>Save these results!</button>
         </section>

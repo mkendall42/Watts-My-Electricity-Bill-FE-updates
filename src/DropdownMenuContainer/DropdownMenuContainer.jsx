@@ -2,7 +2,7 @@ import './DropdownMenuContainer.css'
 import { useState } from 'react'
 //Any other hooks to bring in?
 
-function DropdownMenuContainer({ itemsList, processSelection }) {
+function DropdownMenuContainer({ itemsList, defaultText, processSelection }) {
     //With a little work, this could be a much more generic dropdown menu - useful for all kinds of things
 
     //State vars for tracking status of the menu
@@ -22,7 +22,7 @@ function DropdownMenuContainer({ itemsList, processSelection }) {
 
     const menuItems = itemsList.map((item) => {
         return (
-            <li onClick={() => selectItem(item)}>
+            <li key={item} onClick={() => selectItem(item)}>
                 {item}
             </li>
         )
@@ -33,7 +33,7 @@ function DropdownMenuContainer({ itemsList, processSelection }) {
     return (
         <div>
             <button onClick={() => toggleMenu()}>
-                {selectedItem ? selectedItem : "Select annual / monthly"}
+                {selectedItem ? selectedItem : defaultText}
             </button>
             {/* Now display the list of items/options */}
             {isOpen && (

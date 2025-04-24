@@ -16,7 +16,8 @@ const ResultsContainer = ({ user, results }) => {
     //Later: add zip code and state (based on BE return?)
     //Later later: add utility company associated with this...
 
-    const itemsList = ["Annual", "Monthly"]
+    const timeframeList = ["Annual", "Monthly"]
+    const utilityRateType = ["Residential", "Commercial", "Industrial"]
 
     //Ensure proper display if erroneous / incopmlete results (NOTE: still not displaying correctly on first page load; works after that)
     if (results === null || results.status === 422) {
@@ -50,16 +51,22 @@ const ResultsContainer = ({ user, results }) => {
         })
     }
 
-    const processSelection = (item) => {
+    const processTimeframeSelection = (item) => {
         setTimeframe(item)
         console.log("Item selected: ", item)
     }
-		
+	
+    const processUtilityRateTypeSelection = (item) => {
+        // setTimeframe(item)
+        console.log("Utility rate type selected: ", item)
+    }
+    
     return (
         <section className='results-window'>
             <p>{nameAndLocation}</p>
             {/* Call a dropdown container here; then probably need to conditionally render stuff below this */}
-            <DropdownMenuContainer itemsList={itemsList} processSelection={processSelection} />
+            <DropdownMenuContainer key="timeframe" itemsList={timeframeList} defaultText="Select timeframe" processSelection={processTimeframeSelection} />
+            <DropdownMenuContainer key="utility" itemsList={utilityRateType} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
             <section className='values'>
                 <p className='results'>{ `Energy consumption: ${results.cost} kWh` }</p>
                 <p className='results'>{ `Energy cost: $${results.energy_consumption}` }</p>

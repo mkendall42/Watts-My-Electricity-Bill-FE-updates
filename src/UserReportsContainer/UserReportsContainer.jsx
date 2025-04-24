@@ -1,3 +1,4 @@
+
 import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import './UserReportsContainer.css'
@@ -32,5 +33,6 @@ const UserReportsContainer = () => {
     </div>
   )
 }
+
 
 export default UserReportsContainer

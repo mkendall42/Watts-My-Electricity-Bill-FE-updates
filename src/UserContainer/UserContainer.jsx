@@ -1,7 +1,7 @@
 import { NavLink, Link } from 'react-router-dom'
 import './UserContainer.css'
 
-const UserContainer = () => {
+const UserContainer = ({ user }) => {
 	return (
 		<div className='UserContainer'>
 			<nav>

@@ -4,7 +4,7 @@ import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContaine
 import { useState } from 'react'
 
 //This still needs to be properly implemented (it's not technically even capturing a specific user; and we need IDs)
-const LoginContainer = () => {
+const LoginContainer = ({ user, setUser }) => {
     const [userItems, setUserItems] = useState(null)
     const [selectedUser, setSelectedUser] = useState(null)
 
@@ -62,11 +62,21 @@ const LoginContainer = () => {
 
     return (
         <div>
+			<nav>
+				<NavLink to="/" className="nav">Search</NavLink>
+				<NavLink to="/login" className="nav">Login</NavLink>
+			</nav>
 
-            <nav>
-                <NavLink to="/" className="nav">Search</NavLink>
-                <NavLink to="/login" className="nav">Login</NavLink>
-            </nav>
+			{/* <form>
+				<input className="userName"
+					type='text'
+					placeholder='Username'
+					name='user'
+					value={user}
+					onChange={e => setUser(e.target.value)}
+				/>
+				<Link to="/user" className="nav">Login</Link>
+			</form> */}
 
             <p>
                 {"User:  "} 
@@ -96,4 +106,5 @@ const LoginContainer = () => {
         </div>
     )
 }
+
 export default LoginContainer;

@@ -3,7 +3,9 @@ import './SearchContainer.css';
 
 const SearchContainer = ({ setResults }) => {
 	const [nickname, setNickname] = useState('');
-  const [zipCode, setZipCode] = useState('');
+	const [zipcode, setZipcode] = useState('');
+  // const [lat, setLat] = useState('');
+  // const [long, setLong] = useState('');
   const [residenceType, setResidenceType] = useState('');
   const [occupants, setOccupants] = useState('');
   const [energyUsage, setEnergyUsage] = useState('');
@@ -13,7 +15,9 @@ const SearchContainer = ({ setResults }) => {
 
 		const queryParams = new URLSearchParams({
 			nickname: nickname,
-      zipcode: zipCode,
+			zipcode: zipcode,
+			// latitude: lat,
+			// longitude: long,
 			residence_type: residenceType,
 			num_residents: occupants,
 			efficiency_level: energyUsage
@@ -35,14 +39,15 @@ const SearchContainer = ({ setResults }) => {
 
   function clearInput() {
 		setNickname('');
-    setZipCode('');
+		setZipcode('');
+    // setLat('');
+    // setLong('');
     setResidenceType('');
     setOccupants('');
     setEnergyUsage('');
   }
 
   return (
-
     <form onSubmit={submitSearch}>
       <input
         type='text'
@@ -55,8 +60,8 @@ const SearchContainer = ({ setResults }) => {
       <input
         type='text'
         placeholder='Zip code'
-        name='zipCode'
-        value={zipCode}
+        name='zipcode'
+        value={zipcode}
         onChange={e => setZipCode(e.target.value)}
       />
 

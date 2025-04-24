@@ -4,8 +4,7 @@ import ResultsContainer from '../ResultsContainer/ResultsContainer'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-function HomeContainer() {
-	const [user, setUser] = useState([])
+function HomeContainer({ user }) {
 	const [results, setResults] = useState([])
 	return (
 		<div className='HomeContainer'>

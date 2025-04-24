@@ -1,21 +1,49 @@
-import { NavLink } from 'react-router-dom'
-
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const LoginContainer = () => {
-    return (
-        <div>
+  const [username, setUsername] = useState('')
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
 
-            <nav>
-                <NavLink to="/" className="nav">Search</NavLink>
-                <NavLink to="/login" className="nav">Login</NavLink>
-            </nav>
+  const handleLogin = async (e) => {
+    e.preventDefault()
 
-            <form>
-                <input className ="userName"/>
-            <NavLink to="/:user_id" className="nav">Login</NavLink>
-            </form>
+    try {
+      const res = await fetch('http://localhost:3000/api/v1/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+      })
 
-        </div>
-    )
+      const data = await res.json()
+
+      if (res.ok) {
+        // 👇 this is where it switches the view!
+        navigate(`/${username}`)
+      } else {
+        setError(data.message || 'Login failed.')
+      }
+    } catch (err) {
+      console.error('Login error:', err)
+      setError('Something went wrong.')
+    }
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleLogin}>
+        <input
+          className="userName"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+        />
+        <button type="submit">Login</button>
+        {error && <p className="error">{error}</p>}
+      </form>
+    </div>
+  )
 }
-export default LoginContainer;
+
+export default LoginContainer

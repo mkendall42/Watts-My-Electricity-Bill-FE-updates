@@ -18,13 +18,7 @@ const LoginContainer = ({ user, setUser }) => {
         })
         .then(response => response.json())
         .then(data => {
-            //Update userItems (note that JSON top-level is not usual {} but instead []) - had to do via function, apparently userItems isn't in scope???
-            // let mappedUserItems = data.map((user) => {
-            //     return user.username
-            // })
-
-            // setUserItems(mappedUserItems)
-            setUserItems(data)                      //This preserves the id associated with the name, which we need once a user is selected to login
+            setUserItems(data)
         })
         .catch(error => {
             console.error("Error: ", error)
@@ -32,18 +26,16 @@ const LoginContainer = ({ user, setUser }) => {
     }
 
     const processUserSelection = (username) => {
-        //Not exactly sure how to best handle this...
+        //Later: can replace this method simply with setSelectedUser().  This was just for testing / consistency check
         console.log("Newly selected user: ", username)
         setSelectedUser(username)
     }
 
     const processLogin = () => {
-        //Set the user state var (how do we get the setUser() prop sent here from HomeContainer via NavLink / whatever/)
         console.log("Logging in user: ", selectedUser)
         console.log(`${selectedUser}'s ID: `, findUserId(selectedUser))
-        //setUser(selectedUser)
-        navigateToPage(`/${findUserId(selectedUser)}`)       //Is this where we want to go (ReportsContainer)?  Also, once other actions taken, user is lost (need to set state somehow I'm guessing)
-        //I think we need to move user to App so that setUser() can be passed to LoginContainer and we can set it here...
+        setUser(selectedUser)
+        navigateToPage("/user")
     }
 
     const findUserId = (username) => {
@@ -67,17 +59,6 @@ const LoginContainer = ({ user, setUser }) => {
 				<NavLink to="/login" className="nav">Login</NavLink>
 			</nav>
 
-			{/* <form>
-				<input className="userName"
-					type='text'
-					placeholder='Username'
-					name='user'
-					value={user}
-					onChange={e => setUser(e.target.value)}
-				/>
-				<Link to="/user" className="nav">Login</Link>
-			</form> */}
-
             <p>
                 {"User:  "} 
             </p>
@@ -85,24 +66,11 @@ const LoginContainer = ({ user, setUser }) => {
                 <DropdownMenuContainer key="login-menu" itemsList={usernames} defaultText="Select username" processSelection={processUserSelection} />
             )}
             <br></br>
-
-            {/* {if (selectedUser === 1) {
-
-            } && (
-
-            )} */}
-            {/* <button disabled={!selectedUser} onClick={() => console.log("Selected user: ", selectedUser)}>Login!</button> */}
             {selectedUser ? (
                 <button onClick={() => processLogin()}>Login!</button>
             ) : (
                 <button className="button-disabled" disabled={true}>Pick a user...</button>
             )}
-
-            {/* <form>
-                <input className ="userName"/>
-            <NavLink to="/:user_id" className="nav">Login</NavLink>
-            </form> */}
-
         </div>
     )
 }

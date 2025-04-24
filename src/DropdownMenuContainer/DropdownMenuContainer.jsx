@@ -22,7 +22,7 @@ function DropdownMenuContainer({ itemsList, defaultText, processSelection }) {
 
     const menuItems = itemsList.map((item) => {
         return (
-            <li key={item} onClick={() => selectItem(item)}>
+            <li className="dropdown-item" key={item} onClick={() => selectItem(item)}>
                 {item}
             </li>
         )
@@ -31,13 +31,13 @@ function DropdownMenuContainer({ itemsList, defaultText, processSelection }) {
     //Handle highlighting in CSS file eventually!
 
     return (
-        <div>
-            <button onClick={() => toggleMenu()}>
+        <div className="dropdown">
+            <button className="dropdown-button" onClick={() => toggleMenu()}>
                 {selectedItem ? selectedItem : defaultText}
             </button>
             {/* Now display the list of items/options */}
             {isOpen && (
-                <ul>
+                <ul className="dropdown-list">
                     {menuItems}
                 </ul>
             )}

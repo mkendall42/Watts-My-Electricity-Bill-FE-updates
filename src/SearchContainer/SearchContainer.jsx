@@ -58,11 +58,11 @@ const SearchContainer = ({ setResults }) => {
       />
 
       <input
-        type='number'
-        placeholder='Zipcode'
+        type='text'
+        placeholder='Zip code'
         name='zipcode'
         value={zipcode}
-        onChange={e => setLat(e.target.value)}
+        onChange={e => setZipCode(e.target.value)}
       />
 
       <input

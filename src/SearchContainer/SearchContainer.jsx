@@ -3,8 +3,7 @@ import './SearchContainer.css';
 
 const SearchContainer = ({ setResults }) => {
 	const [nickname, setNickname] = useState('');
-  const [lat, setLat] = useState('');
-  const [long, setLong] = useState('');
+  const [zipCode, setZipCode] = useState('');
   const [residenceType, setResidenceType] = useState('');
   const [occupants, setOccupants] = useState('');
   const [energyUsage, setEnergyUsage] = useState('');
@@ -14,8 +13,7 @@ const SearchContainer = ({ setResults }) => {
 
 		const queryParams = new URLSearchParams({
 			nickname: nickname,
-			latitude: lat,
-			longitude: long,
+      zipcode: zipCode,
 			residence_type: residenceType,
 			num_residents: occupants,
 			efficiency_level: energyUsage
@@ -37,8 +35,7 @@ const SearchContainer = ({ setResults }) => {
 
   function clearInput() {
 		setNickname('');
-    setLat('');
-    setLong('');
+    setZipCode('');
     setResidenceType('');
     setOccupants('');
     setEnergyUsage('');
@@ -57,18 +54,10 @@ const SearchContainer = ({ setResults }) => {
 
       <input
         type='text'
-        placeholder='Latitude'
-        name='lat'
-        value={lat}
-        onChange={e => setLat(e.target.value)}
-      />
-
-      <input
-        type='text'
-        placeholder='Longitude'
-        name='long'
-        value={long}
-        onChange={e => setLong(e.target.value)}
+        placeholder='Zip code'
+        name='zipCode'
+        value={zipCode}
+        onChange={e => setZipCode(e.target.value)}
       />
 
       <input

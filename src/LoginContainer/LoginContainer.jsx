@@ -43,6 +43,7 @@ const LoginContainer = () => {
         console.log(`${selectedUser}'s ID: `, findUserId(selectedUser))
         //setUser(selectedUser)
         navigateToPage(`/${findUserId(selectedUser)}`)       //Is this where we want to go (ReportsContainer)?  Also, once other actions taken, user is lost (need to set state somehow I'm guessing)
+        //I think we need to move user to App so that setUser() can be passed to LoginContainer and we can set it here...
     }
 
     const findUserId = (username) => {

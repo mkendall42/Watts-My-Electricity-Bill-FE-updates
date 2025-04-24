@@ -1,0 +1,9 @@
+/* Make a ghosted button, maybe with a different cursor even */
+
+.button-disabled {
+    background-color: gray;
+}
+
+.button-disabled:hover {
+    background-color: gray;
+}

@@ -1,3 +1,4 @@
+import './LoginContainer.css'
 import { NavLink } from 'react-router-dom'
 import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContainer';
 import { useState } from 'react'
@@ -5,6 +6,7 @@ import { useState } from 'react'
 //This still needs to be properly implemented (it's not technically even capturing a specific user; and we need IDs)
 const LoginContainer = () => {
     const [userItems, setUserItems] = useState(null)
+    const [selectedUser, setSelectedUser] = useState(null)
 
     //Get all usernames for the dropdown
     //NOTE: later, if we have an empty user list, should probably give message before rendering dropdown (this is also why 'null' vs '[]' used initially)
@@ -26,8 +28,10 @@ const LoginContainer = () => {
         })
     }
 
-    const processUserSelection = () => {
+    const processUserSelection = (username) => {
         //Not exactly sure how to best handle this...
+        console.log("Newly selected user: ", username)
+        setSelectedUser(username)
     }
 
     return (
@@ -40,10 +44,24 @@ const LoginContainer = () => {
 
             <p>
                 {"User:  "} 
-                {userItems && (
-                    <DropdownMenuContainer key="login-menu" itemsList={userItems} defaultText="Select username" processSelection={processUserSelection} />
-                )}
             </p>
+            {userItems && (
+                <DropdownMenuContainer key="login-menu" itemsList={userItems} defaultText="Select username" processSelection={processUserSelection} />
+            )}
+            <br></br>
+
+            {/* {if (selectedUser === 1) {
+
+            } && (
+
+            )} */}
+            {/* <button disabled={!selectedUser} onClick={() => console.log("Selected user: ", selectedUser)}>Login!</button> */}
+            {selectedUser ? (
+                <button onClick={() => console.log("Selected user: ", selectedUser)}>Login!</button>
+            ) : (
+                <button className="button-disabled" disabled={true}>Pick a user...</button>
+            )}
+
             {/* <form>
                 <input className ="userName"/>
             <NavLink to="/:user_id" className="nav">Login</NavLink>

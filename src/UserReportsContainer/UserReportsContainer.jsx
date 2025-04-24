@@ -1,14 +1,14 @@
-import { NavLink, Link } from 'react-router-dom'
 import './UserReportsContainer.css'
+import { NavLink } from 'react-router-dom'
 
 const UserReportsContainer = () => {
-	return (
-		<nav>
-			<NavLink to="/user" className="nav">Search</NavLink>
-			<NavLink to="/reports" className="nav">Saved Reports</NavLink>
+    return (
+        <nav>
+        <NavLink to="/:user_id" className="nav">Search</NavLink>
+        <NavLink to="/:user_id/:userReportsId" className="nav">Saved Reports</NavLink>
 
-			<Link to="/" className="nav">Log out</Link>
-		</nav>
-	)
+        <NavLink to="/" className="nav">Log out</NavLink>
+        </nav>
+    )
 }
 export default UserReportsContainer

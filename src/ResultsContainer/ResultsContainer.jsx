@@ -1,11 +1,13 @@
+import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContainer';
 import './ResultsContainer.css';
-import useState from 'react';
+import { useState } from 'react';
 
 //Need to add the "Save these results" button.  Should it live with this container, or outside of it?  (Kinda a matter of bookkeeping, but might need to nest a container)
 //Later: will also want to list average utility rates for the state - will make BE call to get this info (either its own controller, or another action from UtilitiesController)
 //For now: button will reside within this container (hopefully can format it to put it in the right place)
 
 const ResultsContainer = ({ user, results }) => {
+    const [timeframe, setTimeframe] = useState("")
 
     // debugger
 
@@ -13,6 +15,8 @@ const ResultsContainer = ({ user, results }) => {
     let nameAndLocation = `Your Estimated Energy Usage and Costs for ${nickname}`
     //Later: add zip code and state (based on BE return?)
     //Later later: add utility company associated with this...
+
+    const itemsList = ["Annual", "Monthly"]
 
     //Ensure proper display if erroneous / incopmlete results (NOTE: still not displaying correctly on first page load; works after that)
     if (results === null || results.status === 422) {
@@ -45,10 +49,17 @@ const ResultsContainer = ({ user, results }) => {
             //Update the button appropriately with error / notification (same function?)
         })
     }
+
+    const processSelection = (item) => {
+        setTimeframe(item)
+        console.log("Item selected: ", item)
+    }
 		
     return (
         <section className='results-window'>
             <p>{nameAndLocation}</p>
+            {/* Call a dropdown container here; then probably need to conditionally render stuff below this */}
+            <DropdownMenuContainer itemsList={itemsList} processSelection={processSelection} />
             <section className='values'>
                 <p className='results'>{ `Energy consumption: ${results.cost} kWh` }</p>
                 <p className='results'>{ `Energy cost: $${results.energy_consumption}` }</p>

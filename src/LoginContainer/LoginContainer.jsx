@@ -39,7 +39,7 @@ const LoginContainer = ({ user, setUser }) => {
         console.log(`${selectedUser}'s ID:`, userId)
         
         setUser(userId)
-        navigateToPage(`/user/${userId}`)
+        navigateToPage(`/user/${userId}/saved`)
       }
       
     const findUserId = (username) => {
@@ -49,6 +49,7 @@ const LoginContainer = ({ user, setUser }) => {
     }
 
     //Need the if since call was async
+    //Alt: use useEffect() for this!
     let usernames = []
     if (userItems) {
         usernames = userItems.map((user) => {

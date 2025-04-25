@@ -24,3 +24,11 @@
 	width: 90%;
 
 }
+
+.button-disabled {
+  background-color: gray;
+}
+
+.button-disabled:hover {
+  background-color: gray;
+}

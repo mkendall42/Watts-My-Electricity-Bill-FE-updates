@@ -10,9 +10,17 @@ const SearchContainer = ({ setResults }) => {
   const [occupants, setOccupants] = useState('');
   const [energyUsage, setEnergyUsage] = useState('');
 
+  //IMPORTANT NOTE: this next line is important to set for ensuring the ResultsContainer gives the empty response.
+  //HOWEVER, it seems to be occassionally (not nearly always) cause an error:
+  //"Cannot update a component (`App`) while rendering a different component (`SearchContainer`)".
+  //No idea why it only sometimes triggers, and the page still seems to load correctly as far as I can tell...
+  // setResults(null)
+
   function submitSearch(event) {
     event.preventDefault();
 
+    debugger
+    
 		const queryParams = new URLSearchParams({
 			nickname: nickname,
 			zipcode: zipcode,
@@ -62,7 +70,7 @@ const SearchContainer = ({ setResults }) => {
         placeholder='Zip code'
         name='zipcode'
         value={zipcode}
-        onChange={e => setZipCode(e.target.value)}
+        onChange={e => setZipcode(e.target.value)}
       />
 
       <input

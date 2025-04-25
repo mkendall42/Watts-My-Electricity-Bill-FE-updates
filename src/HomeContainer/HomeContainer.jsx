@@ -4,8 +4,12 @@ import ResultsContainer from '../ResultsContainer/ResultsContainer'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-function HomeContainer({ user }) {
-	const [results, setResults] = useState([])
+function HomeContainer({ user, results, setResults }) {
+
+	if(results) {
+		setResults(null)
+	}
+
 	return (
 		<div className='HomeContainer'>
 			<div className="left-side">

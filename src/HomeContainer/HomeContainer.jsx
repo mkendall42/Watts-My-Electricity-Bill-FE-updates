@@ -6,9 +6,10 @@ import { useState, useEffect } from 'react'
 
 function HomeContainer({ user, results, setResults }) {
 
-	if(results) {
-		setResults(null)
-	}
+	// if(results) {
+	// 	setResults(null)
+	// }
+	setResults(null)
 
 	return (
 		<div className='HomeContainer'>

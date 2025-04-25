@@ -19,8 +19,8 @@ const SearchContainer = ({ setResults }) => {
   function submitSearch(event) {
     event.preventDefault();
 
-    debugger
-    
+    // debugger
+
 		const queryParams = new URLSearchParams({
 			nickname: nickname,
 			zipcode: zipcode,

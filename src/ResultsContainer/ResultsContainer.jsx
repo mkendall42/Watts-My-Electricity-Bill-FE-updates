@@ -13,7 +13,7 @@ const ResultsContainer = ({ user, results }) => {
 
     //IMPORTANT: implement soon
     //Add useEffect hook to update when results come in
-    useEffect( , [results])
+    // useEffect( , [results])
 
     let nameAndLocation = ""
     let stateUtilText = ""
@@ -57,7 +57,7 @@ const ResultsContainer = ({ user, results }) => {
             nickname: results.nickname,
             energy_usage: results.energy_consumption,       //Might rename later (here or BE) if confusion
             energy_cost: results.cost,
-            user_id: 5                           //This needs to be checked, this is just a placeholder (verify how we're getting the user info, is it an object/what) - user_id: user.id or similar
+            user_id: user                                   //This needs to be checked, this is just a placeholder (verify how we're getting the user info, is it an object/what) - user_id: user.id or similar
             // user_id: user.id               
         }
         const parameters = {
@@ -139,8 +139,8 @@ const ResultsContainer = ({ user, results }) => {
                 <DropdownMenuContainer key="timeframe" itemsList={timeframeList} defaultText="Select timeframe" processSelection={processTimeframeSelection} />
                 <DropdownMenuContainer key="utility" itemsList={utilityRateTypeList} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
                 <section className='values'>
-                    <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.cost).toFixed(1)} kWh` }</p>
-                    <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.energy_consumption).toFixed(2)}` }</p> 
+                    <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.energy_consumption).toFixed(1)} kWh` }</p>
+                    <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.cost).toFixed(2)}` }</p> 
                     <p className='results'>{stateUtilText}</p>
                     <p className='results'>{localUtilText}</p>
                 </section>

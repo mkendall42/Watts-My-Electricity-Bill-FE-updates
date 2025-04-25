@@ -62,6 +62,7 @@ const UserReportsContainer = ({ results, setResults }) => {
                 <p>No saved reports.</p>
               )}
             </div>
+            <ResultsContainer user={user_id} results={results} />
           </div>
         )}
       </div>

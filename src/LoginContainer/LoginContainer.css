@@ -8,10 +8,46 @@
     background-color: gray;
 }
 
-.LoginContainer {
+.loginContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     width: 100vw;
+}
+
+.loginNav {
+    display: flex;
+    gap: 1em;
+    background-color: #f4f4f4;
+    border-radius: 12px;
+    padding: 0.5em 1em;
+  }
+  
+  .nav {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+  }
+  
+  .nav.active {
+    background-color: #ffd900;
+    color: #333;
+  }
+
+.loginInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 100%;
+    padding: .75em;
+    border-radius: 12px;
+    background-color: #585b5e;
+    border-color: black;
+    border-style: solid;
+    border-width: .15em;
 }

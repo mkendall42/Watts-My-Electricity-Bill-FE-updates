@@ -6,7 +6,8 @@
 .dropdown-button {
     padding: 5px 10px 5px 10px;
     min-width: 160px;
-    text-align: left;
+    background-color: #3c3934;
+    text-align: center;
     border-radius: 2px;
 }
 
@@ -14,7 +15,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #fff;
+    background-color: #212020;
     border: 1px solid #ccc;
     list-style: none;
     padding: 0;
@@ -29,5 +30,9 @@
 }
 
 .dropdown-item:hover {
-    background-color: #6f7cf5;
+    background-color: #626262;
+}
+
+button {
+    background-color: #e4bd11;
 }

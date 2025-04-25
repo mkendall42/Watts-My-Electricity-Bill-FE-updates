@@ -1,8 +1,9 @@
 import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import './UserReportsContainer.css'
+import ResultsContainer from '../ResultsContainer/ResultsContainer.jsx'
 
-const UserReportsContainer = () => {
+const UserReportsContainer = ({results, setResults}) => {
   const { user_id } = useParams()
   const [reports, setReports] = useState([])
 
@@ -13,6 +14,12 @@ const UserReportsContainer = () => {
       .catch(err => console.error('Error fetching reports:', err))
   }, [user_id])
 
+  const fetchReportInfo = (reportId) => {
+    fetch(`http://localhost:3000/api/v1/reports/${reportId}`)
+    .then(res => res.json())
+    .then(data => setResults(data))
+  }
+
   return (
     <div className="user-reports">
       <nav>
@@ -21,19 +28,27 @@ const UserReportsContainer = () => {
         <NavLink to="/" className="nav">Log out</NavLink>
       </nav>
 
-      <h2>User ID {user_id}'s Reports</h2>
-
-      <ul>
-        {reports.length > 0 ? (
-          reports.map((report) => (
-            <li key={report.id}>
-              <strong>{report.nickname}</strong> — ${report.cost} / {report.energy_consumption} kWh
-            </li>
-          ))
-        ) : (
-          <p>No saved reports.</p>
-        )}
-      </ul>
+      <div className='reportsContainer'>
+        <h2>User ID {user_id}'s Reports</h2>
+            <div className='buttonList'>
+                {reports.length > 0 ? (
+                reports.map((report) => (
+                    <button key={report.id} onClick={() => fetchReportInfo(report.id)}>
+                    {/* <strong>{report.nickname}</strong> — ${report.cost} / {report.energy_consumption} kWh */}
+                    {report.nickname}
+                    </button>
+                ))
+                ) : (
+                <p>No saved reports.</p>
+                )}
+            </div>
+      </div>
+      <div className='user-results'>
+        <ResultsContainer
+        user_id={user_id}
+        results={results}
+        />
+      </div>
     </div>
   )
 }

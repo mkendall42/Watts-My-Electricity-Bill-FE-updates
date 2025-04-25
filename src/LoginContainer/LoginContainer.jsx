@@ -34,12 +34,14 @@ const LoginContainer = ({ user, setUser }) => {
     }
 
     const processLogin = () => {
-        console.log("Logging in user: ", selectedUser)
-        console.log(`${selectedUser}'s ID: `, findUserId(selectedUser))
-        setUser(selectedUser)
-        navigateToPage("/user")
-    }
-
+        const userId = findUserId(selectedUser)
+        console.log("Logging in user:", selectedUser)
+        console.log(`${selectedUser}'s ID:`, userId)
+        
+        setUser(userId)
+        navigateToPage(`/user/${userId}`)
+      }
+      
     const findUserId = (username) => {
         return userItems.find((user) => {
             return user.username === username

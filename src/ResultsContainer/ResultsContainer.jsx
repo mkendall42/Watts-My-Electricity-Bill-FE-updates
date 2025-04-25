@@ -11,8 +11,16 @@ const ResultsContainer = ({ user, results }) => {
     const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
     const [isSaveable, setIsSaveable] = useState(false)
 
+    // debugger
+
     let nickname = results.nickname
-    let nameAndLocation = `Your Estimated Energy Usage and Costs for ${nickname}`
+    let nameAndLocation = `Your Estimated Energy Usage and Costs for "${nickname}"`
+    let stateUtilText = ""
+    let localUtilText = ""
+    if (utilityRateType != "") {
+        stateUtilText = `Average ${utilityRateType.toLowerCase()} rate for ${results.state}: $${results.state_average[utilityRateType.toLowerCase()].toFixed(2)}/kWh`
+        localUtilText = `Local ${utilityRateType.toLowerCase()} rate: $${results.zip_average[utilityRateType.toLowerCase()].toFixed(2)}/kWh`
+    } 
     //Later: add zip code and state (based on BE return?)
     //Later later: add utility company associated with this...
 
@@ -95,6 +103,23 @@ const ResultsContainer = ({ user, results }) => {
     //Disable IF neither of the above.
     //If save is clicked when enabled, briefly display message on button e.g. "SAVED!" or similar
     //Maybe track this with isSaveable state var.
+
+    //For reference - 'results' structure:
+    // {
+    //     "nickname": (string) name of place,
+    //     "energy_consumption": (float) energy consumption,
+    //     "state": (string) state of the zipcode,
+    //     "state_average": {
+    //         "residential": (float) residential rate for month,
+    //         "industrial":(float) industrial rate for month,
+    //         "commercial": (float) commercial rate for month 
+    //     },
+    //     "zip_average": {
+    //         "residential": (float),
+    //         "industrial": (float),
+    //         "commercial": (float) 
+    //     }
+    // }
     
     return (
         <section className='results-window'>
@@ -105,7 +130,8 @@ const ResultsContainer = ({ user, results }) => {
             <section className='values'>
                 <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.cost).toFixed(1)} kWh` }</p>
                 <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.energy_consumption).toFixed(2)}` }</p>
-                <p className='results'>{ `Average ${utilityRateType.toLowerCase()} state rate: <value goes here> $/kWh` }</p>
+                <p className='results'>{stateUtilText}</p>
+                <p className='results'>{localUtilText}</p>
             </section>
             {isSaveable ? (
                 <button onClick={() => saveResults()}>Save these results!</button>

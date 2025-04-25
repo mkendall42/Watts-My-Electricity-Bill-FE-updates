@@ -11,16 +11,22 @@ const ResultsContainer = ({ user, results }) => {
     const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
     const [isSaveable, setIsSaveable] = useState(false)
 
-    // debugger
-
-    let nickname = results.nickname
-    let nameAndLocation = `Your Estimated Energy Usage and Costs for "${nickname}"`
+    let nameAndLocation = ""
     let stateUtilText = ""
     let localUtilText = ""
-    if (utilityRateType != "") {
-        stateUtilText = `Average ${utilityRateType.toLowerCase()} rate for ${results.state}: $${results.state_average[utilityRateType.toLowerCase()].toFixed(2)}/kWh`
-        localUtilText = `Local ${utilityRateType.toLowerCase()} rate: $${results.zip_average[utilityRateType.toLowerCase()].toFixed(2)}/kWh`
-    } 
+
+    if (results) {
+
+        // debugger
+
+        nameAndLocation = `Your Estimated Energy Usage and Costs for "${results.nickname}"`
+        stateUtilText = ""
+        localUtilText = ""
+        if (utilityRateType != "") {
+            stateUtilText = `Average ${utilityRateType.toLowerCase()} rate for ${results.state}: $${results.state_average[utilityRateType.toLowerCase()].toFixed(2)}/kWh`
+            localUtilText = `Local ${utilityRateType.toLowerCase()} rate: $${results.zip_average[utilityRateType.toLowerCase()].toFixed(2)}/kWh`
+        } 
+    }
     //Later: add zip code and state (based on BE return?)
     //Later later: add utility company associated with this...
 
@@ -30,10 +36,10 @@ const ResultsContainer = ({ user, results }) => {
     //Things to take care of first:
     //Ensure proper display if erroneous / incopmlete results (NOTE: still not displaying correctly on first page load; works after that)
     if (results === null || results.status === 422) {
-        nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
+        // nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
     }
 
-    if (user !== '' && results) {
+    if (user !== '' && results && isSaveable === false) {
         //User must be logged in, and results must be valid (which implies it's already been checked against BE for unique nickname, etc.)
         setIsSaveable(true)
     }
@@ -121,24 +127,55 @@ const ResultsContainer = ({ user, results }) => {
     //     }
     // }
     
-    return (
-        <section className='results-window'>
-            <p>{nameAndLocation}</p>
-            {/* Call a dropdown container here; then probably need to conditionally render stuff below this */}
-            <DropdownMenuContainer key="timeframe" itemsList={timeframeList} defaultText="Select timeframe" processSelection={processTimeframeSelection} />
-            <DropdownMenuContainer key="utility" itemsList={utilityRateTypeList} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
-            <section className='values'>
-                <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.cost).toFixed(1)} kWh` }</p>
-                <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.energy_consumption).toFixed(2)}` }</p>
-                <p className='results'>{stateUtilText}</p>
-                <p className='results'>{localUtilText}</p>
+    if (results) {
+        return (
+            <section className='results-window'>
+                <p>{nameAndLocation}</p>
+                {/* Call a dropdown container here; then probably need to conditionally render stuff below this */}
+                <DropdownMenuContainer key="timeframe" itemsList={timeframeList} defaultText="Select timeframe" processSelection={processTimeframeSelection} />
+                <DropdownMenuContainer key="utility" itemsList={utilityRateTypeList} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
+                <section className='values'>
+                    <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.cost).toFixed(1)} kWh` }</p>
+                    <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.energy_consumption).toFixed(2)}` }</p> 
+                    <p className='results'>{stateUtilText}</p>
+                    <p className='results'>{localUtilText}</p>
+                </section>
+                {isSaveable ? (
+                    <button onClick={() => saveResults()}>Save these results!</button>
+                ) : (
+                    <button className="button-disabled" disabled={true}>Results already saved</button>
+                )}
             </section>
-            {isSaveable ? (
-                <button onClick={() => saveResults()}>Save these results!</button>
-            ) : (
-                <button className="button-disabled" disabled={true}>Results already saved</button>
-            )}
-        </section>
-    )
+        )
+    } else {
+        return (
+            <section className='results-window'>
+                <p>Results will appear here once you submit a valid search or view a saved report!</p>
+            </section>
+        )
+    }
+    // return (
+    //     <section className='results-window'>
+    //         {results ? (
+    //             <p>{nameAndLocation}</p>
+    //             {/* Call a dropdown container here; then probably need to conditionally render stuff below this */}
+    //             <DropdownMenuContainer key="timeframe" itemsList={timeframeList} defaultText="Select timeframe" processSelection={processTimeframeSelection} />
+    //             <DropdownMenuContainer key="utility" itemsList={utilityRateTypeList} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
+    //             <section className='values'>
+    //                 <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.cost).toFixed(1)} kWh` }</p>
+    //                 <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.energy_consumption).toFixed(2)}` }</p> 
+    //                 <p className='results'>{stateUtilText}</p>
+    //                 <p className='results'>{localUtilText}</p>
+    //             </section>
+    //             {isSaveable ? (
+    //                 <button onClick={() => saveResults()}>Save these results!</button>
+    //             ) : (
+    //                 <button className="button-disabled" disabled={true}>Results already saved</button>
+    //             )}
+    //         ) : (
+    //             <p>Results will appear here once you submit a valid search or view a saved report!</p>
+    //         )}
+    //     </section>
+    // )
 }
 export default ResultsContainer

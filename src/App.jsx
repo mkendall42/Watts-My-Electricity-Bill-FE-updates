@@ -9,7 +9,7 @@ import UserContainer from './UserContainer/UserContainer'
 
 function App() {
 	const [user, setUser] = useState('')
-	const [results, setResults] = useState([])
+	const [results, setResults] = useState(null)
 
 	return (
 		<main className='App'>
@@ -18,7 +18,8 @@ function App() {
 				<Route path="/" element={<HomeContainer user={user} results={results} setResults={setResults} />} />
 				<Route path='/login' element={<LoginContainer user={user} setUser={setUser} />} />
 				<Route path='/user' element={<UserContainer />} />
-				<Route path="/user/:user_id" element={<UserReportsContainer results={results} setResults={setResults}/>}>
+				<Route path="/user/:user_id" element={<UserContainer user={user} results={results} setResults={setResults}/>} />
+				<Route path="/user/:user_id/saved" element={<UserReportsContainer results={results} setResults={setResults}/>}>
 					<Route path=":id" element={<ResultsContainer />} />
 				</Route>
 			</Routes>

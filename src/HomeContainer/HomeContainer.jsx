@@ -6,6 +6,10 @@ import { useState, useEffect } from 'react'
 
 function HomeContainer({ user, results, setResults }) {
 
+	if(results) {
+		setResults(null)
+	}
+
 	return (
 		<div className='HomeContainer'>
 			<div className="left-side">

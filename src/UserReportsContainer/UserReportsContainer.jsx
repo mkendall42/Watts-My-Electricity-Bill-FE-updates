@@ -17,7 +17,14 @@ const UserReportsContainer = ({results, setResults}) => {
   const fetchReportInfo = (reportId) => {
     fetch(`http://localhost:3000/api/v1/reports/${reportId}`)
     .then(res => res.json())
-    .then(data => setResults(data))
+    .then(data => {
+      console.log("fetchReportInfo data: ", data)
+      if (data.length === 0) {
+        setResults(null)
+      } else {
+        setResults(data)
+      }
+    })
   }
 
   return (
@@ -45,7 +52,7 @@ const UserReportsContainer = ({results, setResults}) => {
       </div>
       <div className='user-results'>
         <ResultsContainer
-        user_id={user_id}
+        user={user_id}
         results={results}
         />
       </div>

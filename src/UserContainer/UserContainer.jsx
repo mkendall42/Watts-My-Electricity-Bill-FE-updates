@@ -7,8 +7,6 @@ import ResultsContainer from '../ResultsContainer/ResultsContainer'
 const UserContainer = ({ user, results, setResults }) => {
 	const { userId } = useParams()
 
-	// debugger
-
 	return (
 		<div className='UserContainer'>
 			<div className="left-side">
@@ -30,28 +28,6 @@ const UserContainer = ({ user, results, setResults }) => {
 			/>
 		</div>
 	)
-
-	return (
-		<div className='HomeContainer'>
-			<div className="left-side">
-				<nav>
-					<NavLink to="/" className="nav">Search</NavLink>
-					<NavLink to="/login" className="nav">Login</NavLink>
-				</nav>
-
-				<SearchContainer
-					user={user}
-					setResults={setResults}
-				/>
-			</div>
-
-			<ResultsContainer
-				user={user}
-				results={results}
-			/>
-
-		</div>
-	);
 }
 export default UserContainer
 

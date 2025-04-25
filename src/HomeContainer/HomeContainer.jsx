@@ -9,7 +9,7 @@ function HomeContainer({ user, results, setResults }) {
 	// if(results) {
 	// 	setResults(null)
 	// }
-	setResults(null)
+	// setResults(null)			//This is causing double-rendering component errors, but only occasionally...can't really tell why.
 
 	return (
 		<div className='HomeContainer'>

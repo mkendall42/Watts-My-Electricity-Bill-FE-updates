@@ -1,7 +1,9 @@
+
 import './LoginContainer.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContainer';
 import { useState } from 'react'
+
 
 //This still needs to be properly implemented (it's not technically even capturing a specific user; and we need IDs)
 const LoginContainer = ({ user, setUser }) => {
@@ -32,12 +34,14 @@ const LoginContainer = ({ user, setUser }) => {
     }
 
     const processLogin = () => {
-        console.log("Logging in user: ", selectedUser)
-        console.log(`${selectedUser}'s ID: `, findUserId(selectedUser))
-        setUser(selectedUser)
-        navigateToPage("/user")
-    }
-
+        const userId = findUserId(selectedUser)
+        console.log("Logging in user:", selectedUser)
+        console.log(`${selectedUser}'s ID:`, userId)
+        
+        setUser(userId)
+        navigateToPage(`/user/${userId}`)
+      }
+      
     const findUserId = (username) => {
         return userItems.find((user) => {
             return user.username === username
@@ -58,7 +62,6 @@ const LoginContainer = ({ user, setUser }) => {
 				<NavLink to="/" className="nav">Search</NavLink>
 				<NavLink to="/login" className="nav">Login</NavLink>
 			</nav>
-
             <p>
                 {"User:  "} 
             </p>
@@ -76,3 +79,4 @@ const LoginContainer = ({ user, setUser }) => {
 }
 
 export default LoginContainer;
+

@@ -13,7 +13,7 @@ const ResultsContainer = ({ user, results }) => {
 
     //IMPORTANT: implement soon
     //Add useEffect hook to update when results come in
-    useEffect( , [results])
+    // useEffect( , [results])
 
     let nameAndLocation = ""
     let stateUtilText = ""

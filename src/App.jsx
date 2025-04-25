@@ -1,6 +1,6 @@
 import './App.css'
-import { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import HomeContainer from './HomeContainer/HomeContainer'
 import UserReportsContainer from './UserReportsContainer/UserReportsContainer'
 import ResultsContainer from './ResultsContainer/ResultsContainer'
@@ -10,6 +10,21 @@ import UserContainer from './UserContainer/UserContainer'
 function App() {
 	const [user, setUser] = useState('')
 	const [results, setResults] = useState(null)
+
+    //Detect a route change; if returning to HomeContainer, clear user and results (I think this always makes sense...perhaps there is a specific route where it doesn't?)
+    const location = useLocation()
+    useEffect(() => {
+        console.log("Route changed to: ", location.pathname)
+        if (location.pathname === "/") {
+            setUser('')
+            setResults(null)
+        }
+        // else if (location.pathname === "/user") {
+        //     //This one is harder; probably need to see if it is /user/* but NOT /user/*/saved
+        //     //This can wait until later / if we have time.
+        //     setResults(null)
+        // }
+    }, [location])
 
 	return (
 		<main className='App'>

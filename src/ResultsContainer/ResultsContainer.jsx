@@ -44,8 +44,25 @@ const ResultsContainer = ({ user, results }) => {
     }
 
     if (user !== '' && results && isSaveable === false) {
-        //User must be logged in, and results must be valid (which implies it's already been checked against BE for unique nickname, etc.)
-        setIsSaveable(true)
+        //User must be logged in, results must be valid, and the results must be unique (not already in DB)
+        //BE query via ReportsController#show to verify this is a new / unique set of results
+        //This is awfully roundabout, could be refactored later (maybe pass a true/false prop in if e.g. coming from UserReportsContainer)
+        fetch(`http://localhost:3000/api/v1/users/${user}/reports`)
+            .then(res => res.json())
+            .then(data => {
+                //Compare against existing reports' nicknames
+                let foundReport = data.find((report) => {
+                    return report.nickname === results.nickname
+                })
+
+                // debugger
+
+                if (!foundReport) {
+                    setIsSaveable(true)
+                }
+            })
+            .catch(err => console.error('Error fetching reports:', err))
+        // setIsSaveable(true)
     }
 
     const saveResults = () => {
@@ -130,6 +147,8 @@ const ResultsContainer = ({ user, results }) => {
     //         "commercial": (float) 
     //     }
     // }
+
+    // if (!isSaveable && )
     
     if (results) {
         return (
@@ -147,7 +166,9 @@ const ResultsContainer = ({ user, results }) => {
                 {isSaveable ? (
                     <button onClick={() => saveResults()}>Save these results!</button>
                 ) : (
-                    <button className="button-disabled" disabled={true}>Results already saved</button>
+                    <button className="button-disabled" disabled={true}>
+                        {user === '' ? "Login to save results" : "Results already saved"}
+                    </button>
                 )}
             </section>
         )

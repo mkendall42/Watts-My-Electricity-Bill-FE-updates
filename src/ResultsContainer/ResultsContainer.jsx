@@ -9,6 +9,7 @@ import { useState } from 'react';
 const ResultsContainer = ({ user, results }) => {
     const [timeframe, setTimeframe] = useState("")
     const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
+    const [isSaveable, setIsSaveable] = useState(false)
 
     let nickname = results.nickname
     let nameAndLocation = `Your Estimated Energy Usage and Costs for ${nickname}`
@@ -18,10 +19,17 @@ const ResultsContainer = ({ user, results }) => {
     const timeframeList = ["Annual", "Monthly"]
     const utilityRateTypeList = ["Residential", "Commercial", "Industrial"]
 
+    //Things to take care of first:
     //Ensure proper display if erroneous / incopmlete results (NOTE: still not displaying correctly on first page load; works after that)
     if (results === null || results.status === 422) {
         nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
     }
+
+    if (user !== '' && results) {
+        //User must be logged in, and results must be valid (which implies it's already been checked against BE for unique nickname, etc.)
+        setIsSaveable(true)
+    }
+
     const saveResults = () => {
         //Collect appropriate results to form JSON body
 
@@ -81,6 +89,12 @@ const ResultsContainer = ({ user, results }) => {
 
         return adjustedValue
     }
+
+    //Things that set button behavior:
+    //Enable IF valid results AND user logged in
+    //Disable IF neither of the above.
+    //If save is clicked when enabled, briefly display message on button e.g. "SAVED!" or similar
+    //Maybe track this with isSaveable state var.
     
     return (
         <section className='results-window'>
@@ -93,7 +107,11 @@ const ResultsContainer = ({ user, results }) => {
                 <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.energy_consumption).toFixed(2)}` }</p>
                 <p className='results'>{ `Average ${utilityRateType.toLowerCase()} state rate: <value goes here> $/kWh` }</p>
             </section>
-            <button onClick={() => saveResults()}>Save these results!</button>
+            {isSaveable ? (
+                <button onClick={() => saveResults()}>Save these results!</button>
+            ) : (
+                <button className="button-disabled" disabled={true}>Results already saved</button>
+            )}
         </section>
     )
 }

@@ -14,7 +14,7 @@ function App() {
     //Detect a route change; if returning to HomeContainer, clear user and results (I think this always makes sense...perhaps there is a specific route where it doesn't?)
     const location = useLocation()
     useEffect(() => {
-        console.log("Route changed to: ", location.pathname)
+        // console.log("Route changed to: ", location.pathname)
         if (location.pathname === "/") {
             setUser('')
             setResults(null)

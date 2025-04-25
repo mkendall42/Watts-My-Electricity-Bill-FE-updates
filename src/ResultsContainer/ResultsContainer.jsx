@@ -91,11 +91,17 @@ const ResultsContainer = ({ user, results }) => {
         .then(data => {
             //Check successful; if so, provide text for updating save button and disable it (maybe call function here)
             console.log("Result of save request: ", data)
+            setIsSaveable(false)
+
         })
         .catch(error => {
             console.error("Error: ", error)
             //Update the button appropriately with error / notification (same function?)
         })
+
+        // debugger
+
+        // setIsSaveable(false)
     }
 
     const processTimeframeSelection = (item) => {
@@ -158,10 +164,24 @@ const ResultsContainer = ({ user, results }) => {
                 <DropdownMenuContainer key="timeframe" itemsList={timeframeList} defaultText="Select timeframe" processSelection={processTimeframeSelection} />
                 <DropdownMenuContainer key="utility" itemsList={utilityRateTypeList} defaultText="Select utility type" processSelection={processUtilityRateTypeSelection} />
                 <section className='values'>
-                    <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.energy_consumption).toFixed(1)} kWh` }</p>
-                    <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.cost).toFixed(2)}` }</p> 
-                    <p className='results'>{stateUtilText}</p>
-                    <p className='results'>{localUtilText}</p>
+                    <div>
+                        {timeframe !== "" ? (
+                            <div>
+                                <p className='results'>{ `Energy consumption (${timeframe.toLowerCase()}): ${calcValueForTimeframe(results.energy_consumption).toFixed(1)} kWh` }</p>
+                                <p className='results'>{ `Energy cost (${timeframe.toLowerCase()}): $${calcValueForTimeframe(results.cost).toFixed(2)}` }</p> 
+                            </div>
+                        ) : (
+                            <p>Select timeframe dropdown to display information</p>
+                        )}
+                        {utilityRateType !== "" ? (
+                            <div>
+                                <p className='results'>{stateUtilText}</p>
+                                <p className='results'>{localUtilText}</p>
+                            </div>
+                        ) : (
+                            <p>Select utility type dropdown to display information</p>
+                        )}
+                    </div>
                 </section>
                 {isSaveable ? (
                     <button onClick={() => saveResults()}>Save these results!</button>

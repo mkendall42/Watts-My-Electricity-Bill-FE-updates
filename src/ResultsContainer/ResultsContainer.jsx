@@ -24,16 +24,20 @@ const ResultsContainer = ({ user, results }) => {
     }
     const saveResults = () => {
         //Collect appropriate results to form JSON body
+
+        // debugger
+        
         const reportData = {
             nickname: results.nickname,
-            energy_consumption: results.energy_consumption,
-            cost: results.cost,
-            user_id: user.id                //This needs to be checked, this is just a placeholder (verify how we're getting the user info, is it an object/what) - user_id: user.id or similar
+            energy_usage: results.energy_consumption,       //Might rename later (here or BE) if confusion
+            energy_cost: results.cost,
+            user_id: 5                           //This needs to be checked, this is just a placeholder (verify how we're getting the user info, is it an object/what) - user_id: user.id or similar
+            // user_id: user.id               
         }
         const parameters = {
-			method: "PATCH",
+			method: "POST",
 			body: JSON.stringify(reportData),
-			headers: { "Content-Type": "application/json" }
+			headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": true }
 		}
 
         //BE POST call to create new report
@@ -43,6 +47,7 @@ const ResultsContainer = ({ user, results }) => {
         .then(response => response.json())
         .then(data => {
             //Check successful; if so, provide text for updating save button and disable it (maybe call function here)
+            console.log("Result of save request: ", data)
         })
         .catch(error => {
             console.error("Error: ", error)

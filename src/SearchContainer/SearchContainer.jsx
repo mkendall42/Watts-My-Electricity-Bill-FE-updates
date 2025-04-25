@@ -62,7 +62,7 @@ const SearchContainer = ({ setResults }) => {
         placeholder='Zip code'
         name='zipcode'
         value={zipcode}
-        onChange={e => setZipCode(e.target.value)}
+        onChange={e => setZipcode(e.target.value)}
       />
 
       <input

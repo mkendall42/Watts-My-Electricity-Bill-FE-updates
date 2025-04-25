@@ -57,23 +57,25 @@ const LoginContainer = ({ user, setUser }) => {
     }
 
     return (
-        <div>
-			<nav>
+        <div className='loginContainer'>
+			<nav className='loginNav'>
 				<NavLink to="/" className="nav">Search</NavLink>
 				<NavLink to="/login" className="nav">Login</NavLink>
 			</nav>
-            <p>
-                {"User:  "} 
-            </p>
-            {userItems && (
-                <DropdownMenuContainer key="login-menu" itemsList={usernames} defaultText="Select username" processSelection={processUserSelection} />
-            )}
-            <br></br>
-            {selectedUser ? (
-                <button onClick={() => processLogin()}>Login!</button>
-            ) : (
-                <button className="button-disabled" disabled={true}>Pick a user...</button>
-            )}
+            <div className='loginInfo'>
+                <p>
+                    {"User:  "} 
+                </p>
+                {userItems && (
+                    <DropdownMenuContainer key="login-menu" itemsList={usernames} defaultText="Select username" processSelection={processUserSelection} />
+                )}
+                <br></br>
+                {selectedUser ? (
+                    <button onClick={() => processLogin()}>Login!</button>
+                ) : (
+                    <button className="button-disabled" disabled={true}>Pick a user...</button>
+                )}
+            </div>
         </div>
     )
 }

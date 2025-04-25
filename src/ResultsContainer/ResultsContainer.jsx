@@ -11,6 +11,10 @@ const ResultsContainer = ({ user, results }) => {
     const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
     const [isSaveable, setIsSaveable] = useState(false)
 
+    //IMPORTANT: implement soon
+    //Add useEffect hook to update when results come in
+    useEffect( , [results])
+
     let nameAndLocation = ""
     let stateUtilText = ""
     let localUtilText = ""

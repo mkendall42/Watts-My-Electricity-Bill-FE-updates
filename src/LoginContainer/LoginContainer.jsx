@@ -57,10 +57,6 @@ const LoginContainer = ({ user, setUser }) => {
 
     return (
         <div className='loginContainer'>
-			<nav className='loginNav'>
-				<NavLink to="/" className="nav">Search</NavLink>
-				<NavLink to="/login" className="nav">Login</NavLink>
-			</nav>
             <div className='loginInfo'>
                 <p>
                     {"User:  "} 

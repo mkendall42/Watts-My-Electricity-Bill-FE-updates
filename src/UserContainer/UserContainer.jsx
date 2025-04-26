@@ -4,8 +4,8 @@ import SearchContainer from '../SearchContainer/SearchContainer'
 import ResultsContainer from '../ResultsContainer/ResultsContainer'
 // import 
 
-const UserContainer = ({ user, results, setResults, isNewSearch, setIsNewSearch }) => {
-	const { userId } = useParams()
+const UserContainer = ({ results, user,  setResults, isNewSearch, setIsNewSearch }) => {
+	// const { user_id } = useParams()
 
 	return (
 		<div className='UserContainer'>

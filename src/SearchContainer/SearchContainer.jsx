@@ -10,6 +10,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   const [occupants, setOccupants] = useState('');
   const [energyUsage, setEnergyUsage] = useState('');
   const [reportNicknames, setReportNicknames] = useState([]);
+  const [error, setError] = useState("");
 
   //If user is logged in, load all report nicknames for that user to have on hand for checking uniqueness upon form submission
   useEffect(() => {
@@ -31,16 +32,16 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   function submitSearch(event) {
     event.preventDefault();
 
-    let error = ""
+    setError("")
 
     if (user !== '' && reportNicknames.includes(nickname)) {
       error = "Error: attempted duplicate nickname; try again!"
       //NOTE: we should also provide user feedback here!
-    if (!zipcode == 5)
-      error = "Error: Invalid zip code, try 5 digits!"
-    if (occupants < 1)
-      error = "Error: There must be at least 1 occupant!"
-      return <p>{error}</p>
+    } else if (zipcode.length !== 5) {
+      setError("Error: Invalid zip code, try 5 digits!")
+    } else if (occupants < 1) {
+      setError ("Error: There must be at least 1 occupant!")
+      return
     }
 
 		const queryParams = new URLSearchParams({
@@ -142,7 +143,9 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
         </label>
       </div>
 
-      <button type='submit'>SUBMIT</button>
+      <p>{error}</p>
+
+      <button type='submit' disabled='false'>SUBMIT</button>
     </form>
   );
 };

@@ -4,10 +4,8 @@ import SearchContainer from '../SearchContainer/SearchContainer'
 import ResultsContainer from '../ResultsContainer/ResultsContainer'
 // import 
 
-const UserContainer = ({ user, results, setResults }) => {
+const UserContainer = ({ user, results, setResults, isNewSearch, setIsNewSearch }) => {
 	const { userId } = useParams()
-
-	// debugger
 
 	return (
 		<div className='UserContainer'>
@@ -21,37 +19,19 @@ const UserContainer = ({ user, results, setResults }) => {
 				<SearchContainer
 					user={user}
 					setResults={setResults}
+					isNewSearch={isNewSearch}
+					setIsNewSearch={setIsNewSearch}
 				/>
 			</div>
 
 			<ResultsContainer
 				user={user}
 				results={results}
+				isNewSearch={isNewSearch}
+				setIsNewSearch={setIsNewSearch}
 			/>
 		</div>
 	)
-
-	return (
-		<div className='HomeContainer'>
-			<div className="left-side">
-				<nav>
-					<NavLink to="/" className="nav">Search</NavLink>
-					<NavLink to="/login" className="nav">Login</NavLink>
-				</nav>
-
-				<SearchContainer
-					user={user}
-					setResults={setResults}
-				/>
-			</div>
-
-			<ResultsContainer
-				user={user}
-				results={results}
-			/>
-
-		</div>
-	);
 }
 export default UserContainer
 

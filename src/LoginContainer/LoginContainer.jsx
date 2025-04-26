@@ -15,9 +15,7 @@ const LoginContainer = ({ user, setUser }) => {
     //Get all usernames for the dropdown
     //NOTE: later, if we have an empty user list, should probably give message before rendering dropdown (this is also why 'null' vs '[]' used initially)
     if (!userItems) {
-        fetch("http://localhost:3000/api/v1/users", {
-            //Maybe I don't even need these {} here?
-        })
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users`)
         .then(response => response.json())
         .then(data => {
             setUserItems(data)

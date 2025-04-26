@@ -13,14 +13,14 @@ const UserReportsContainer = ({ results, setResults }) => {
   const isSavedPage = location.pathname === `/user/${user_id}/saved`;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/users/${user_id}/reports`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user_id}/reports`)
       .then(res => res.json())
       .then(data => setReports(data))
       .catch(err => console.error('Error fetching reports:', err));
   }, [user_id]);
 
   const fetchReportInfo = (reportId) => {
-    fetch(`http://localhost:3000/api/v1/reports/${reportId}`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/reports/${reportId}`)
       .then(res => res.json())
       .then(data => {
         console.log("fetchReportInfo data: ", data);

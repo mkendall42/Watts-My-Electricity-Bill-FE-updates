@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "vite preview --port 4173",
     "lint": "eslint .",
     "preview": "vite preview",
     "cypress": "cypress open"
+  
   },
   "dependencies": {
     "cypress": "^14.3.0",

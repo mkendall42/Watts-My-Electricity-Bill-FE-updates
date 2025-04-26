@@ -1,0 +1,16 @@
+{
+  "nickname": "Test Home",
+  "energy_consumption": 12000,
+  "cost": 1500,
+  "state": "CO",
+  "state_average": {
+    "residential": 0.12,
+    "commercial": 0.10,
+    "industrial": 0.08
+  },
+  "zip_average": {
+    "residential": 0.11,
+    "commercial": 0.09,
+    "industrial": 0.07
+  }
+}

@@ -46,6 +46,7 @@ button:hover {
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  color: black;
 }
 
 .energy-slider-container {

@@ -15,7 +15,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   //If user is logged in, load all report nicknames for that user to have on hand for checking uniqueness upon form submission
   useEffect(() => {
     if (user !== '') {
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user_id}/reports`)
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user}/reports`)
         .then(res => res.json())
         .then(data => {
           console.log("Loading existing report nicknames")

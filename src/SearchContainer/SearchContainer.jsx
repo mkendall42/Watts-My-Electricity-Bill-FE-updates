@@ -88,15 +88,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
         value={zipcode}
         onChange={e => setZipcode(e.target.value)}
       />
-
-      <input
-        type='text'
-        placeholder='Type of Residence'
-        name='residenceType'
-        value={residenceType}
-        onChange={e => setResidenceType(e.target.value)}
-      />
-
+      
       <input
         type='number'
         placeholder='Number of Occupants'
@@ -105,13 +97,47 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
         onChange={e => setOccupants(e.target.value)}
       />
 
-      <input
-        type='number'
-        placeholder='Energy Usage Priority (Cost/Comfort)'
-        name='energyUsage'
-        value={energyUsage}
-        onChange={e => setEnergyUsage(e.target.value)}
-      />
+      <div className="energy-slider-container">
+        <label htmlFor="energyUsage">Energy Usage Priority</label>
+        <div className="slider-labels">
+          <span>Eco-Friendly</span>
+          <span>Comfort</span>
+        </div>
+        <input
+          type="range"
+          id="energyUsage"
+          name="energyUsage"
+          min="1"
+          max="2"
+          step="0.1"
+          value={energyUsage}
+          onChange={e => setEnergyUsage(e.target.value)}
+          className="energy-slider"
+        />
+      </div>
+
+      <div className="residence-type">
+        <label>
+          <input
+            type="radio"
+            name="residenceType"
+            value="apartment"
+            checked={residenceType === "apartment"}
+            onChange={e => setResidenceType(e.target.value)}
+          />
+          Apartment
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="residenceType"
+            value="house"
+            checked={residenceType === "house"}
+            onChange={e => setResidenceType(e.target.value)}
+          />
+          House
+        </label>
+      </div>
 
       <button type='submit'>SUBMIT</button>
     </form>

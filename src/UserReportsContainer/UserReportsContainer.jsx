@@ -4,7 +4,7 @@ import './UserReportsContainer.css';
 import ResultsContainer from '../ResultsContainer/ResultsContainer.jsx';
 import SearchContainer from '../SearchContainer/SearchContainer.jsx';
 
-const UserReportsContainer = ({ results, setResults }) => {
+const UserReportsContainer = ({ results, setResults, isNewSearch, setIsNewSearch }) => {
   const { user_id } = useParams();
   const location = useLocation();
   const [reports, setReports] = useState([]);
@@ -17,7 +17,7 @@ const UserReportsContainer = ({ results, setResults }) => {
       .then(res => res.json())
       .then(data => setReports(data))
       .catch(err => console.error('Error fetching reports:', err));
-  }, [user_id]);
+  }, [user_id, isNewSearch]);
 
   const fetchReportInfo = (reportId) => {
     fetch(`http://localhost:3000/api/v1/reports/${reportId}`)
@@ -28,6 +28,7 @@ const UserReportsContainer = ({ results, setResults }) => {
           setResults(null);
         } else {
           setResults(data);
+          setIsNewSearch(false);
         }
       });
   };
@@ -43,8 +44,8 @@ const UserReportsContainer = ({ results, setResults }) => {
       <div className="user-content">
         {isSearchPage && (
           <>
-            <SearchContainer user={user_id} setResults={setResults} />
-            <ResultsContainer user={user_id} results={results} />
+            <SearchContainer user={user_id} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+            <ResultsContainer user={user_id} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
           </>
         )}
 
@@ -62,6 +63,7 @@ const UserReportsContainer = ({ results, setResults }) => {
                 <p>No saved reports.</p>
               )}
             </div>
+            <ResultsContainer user={user_id} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
           </div>
         )}
       </div>

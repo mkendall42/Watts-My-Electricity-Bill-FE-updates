@@ -1,6 +1,6 @@
 import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContainer';
 import './ResultsContainer.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 //Need to add the "Save these results" button.  Should it live with this container, or outside of it?  (Kinda a matter of bookkeeping, but might need to nest a container)
 //Later: will also want to list average utility rates for the state - will make BE call to get this info (either its own controller, or another action from UtilitiesController)
@@ -10,6 +10,7 @@ const ResultsContainer = ({ user, results }) => {
     const [timeframe, setTimeframe] = useState("")
     const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
     const [isSaveable, setIsSaveable] = useState(false)
+    const [saveButtonMessage, setSaveButtonMessage] = useState("Save these results!")
 
     //IMPORTANT: implement soon
     //Add useEffect hook to update when results come in
@@ -63,7 +64,20 @@ const ResultsContainer = ({ user, results }) => {
             })
             .catch(err => console.error('Error fetching reports:', err))
         // setIsSaveable(true)
+    } else {
+        // setSaveButtonMessage("Login to save results")
     }
+
+    useEffect(() => {
+        if (user === '') {
+            setSaveButtonMessage("Login to save results")
+        } else if (isSaveable) {
+            setSaveButtonMessage("Save these results!")
+        } else {
+            //This is a problem when a search as a guest is done, then a login is completed.  Need to fix this - perhaps by building in setIsSaveable() into processLogin(), which will require pre-validating unique report
+            setSaveButtonMessage("Results already saved")
+        }
+    }, [user, results, /*isSaveable*/])
 
     const saveResults = () => {
         //Collect appropriate results to form JSON body
@@ -72,10 +86,25 @@ const ResultsContainer = ({ user, results }) => {
         
         const reportData = {
             nickname: results.nickname,
-            energy_usage: results.energy_consumption,       //Might rename later (here or BE) if confusion
+            energy_consumption: results.energy_consumption,       //Might rename later (here or BE) if confusion
             energy_cost: results.cost,
-            user_id: user                                   //This needs to be checked, this is just a placeholder (verify how we're getting the user info, is it an object/what) - user_id: user.id or similar
-            // user_id: user.id               
+            user_id: user,                                   //This needs to be checked, this is just a placeholder (verify how we're getting the user info, is it an object/what) - user_id: user.id or similar
+            //Add additional necessary data parameters given BE update!    
+            state: results.state,
+            state_residential_avg: results.state_average.residential,
+            state_commercial_avg: results.state_average.commercial,
+            state_industrial_avg: results.state_average.industrial,
+            zip_residential_avg: results.zip_average.residential, 
+            zip_commercial_avg: results.zip_average.commercial, 
+            zip_industrial_avg: results.zip_average.industrial
+
+    // :state,
+    // :state_residential_avg,
+    // :state_industrial_avg,
+    // :state_commercial_avg,
+    // :zip_residential_avg,
+    // :zip_industrial_avg,
+    // :zip_commercial_avg           
         }
         const parameters = {
 			method: "POST",
@@ -91,7 +120,12 @@ const ResultsContainer = ({ user, results }) => {
         .then(data => {
             //Check successful; if so, provide text for updating save button and disable it (maybe call function here)
             console.log("Result of save request: ", data)
-            setIsSaveable(false)
+            setIsSaveable(false)                                //PROBLEM: this triggers the useEvent(), which makes it skip past the 5000ms message.  How to fix?
+            setSaveButtonMessage("Results saved!")
+            setTimeout(() => {
+                console.log("Timeout reached!")
+                setSaveButtonMessage("Results already saved")
+            }, 5000)
 
         })
         .catch(error => {
@@ -184,10 +218,12 @@ const ResultsContainer = ({ user, results }) => {
                     </div>
                 </section>
                 {isSaveable ? (
-                    <button onClick={() => saveResults()}>Save these results!</button>
+                    // <button onClick={() => saveResults()}>Save these results!</button>
+                    <button onClick={() => saveResults()}>{saveButtonMessage}</button>
                 ) : (
                     <button className="button-disabled" disabled={true}>
-                        {user === '' ? "Login to save results" : "Results already saved"}
+                        {/* {user === '' ? "Login to save results" : "Results already saved"} */}
+                        {saveButtonMessage}
                     </button>
                 )}
             </section>

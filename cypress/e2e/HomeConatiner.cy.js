@@ -1,5 +1,9 @@
 describe('HomeContainer and ResultsContainer', () => {
 	beforeEach(() => {
+		cy.intercept('GET', 'https://watts-my-electricity-bill-be.onrender.com/api/v1/utilities*', {
+			fixture: 'utilityResults.json'
+		}).as('getUtilityResults')
+
 		cy.visit('http://localhost:5173')
 	})
 
@@ -25,15 +29,13 @@ describe('HomeContainer and ResultsContainer', () => {
 			})
 	})
 
-	it('submits the form and displays updated results', () => {
+	it('submits the form and displays updated results including slider and radio button', () => {
 		cy.get('input[name="nickname"]').type('Test Home')
 		cy.get('input[name="zipcode"]').type('80236')
-		cy.get('input[name="residenceType"]').type('apartment')
 		cy.get('input[name="occupants"]').type('2')
-		cy.get('input[name="energyUsage"]').type('1')
-
-		cy.get('form button').click()
-
+		cy.get('input[type="radio"][value="apartment"]').check()
+		cy.get('input[type="range"][name="energyUsage"]').invoke('val', 7).trigger('input')
+		cy.get('form button[type="submit"]').click()
 		cy.get('.results-window').within(() => {
 			cy.get('p').first().should('contain', 'Your Estimated Energy Usage and Costs for "Test Home"')
 			cy.get('button').should('exist')

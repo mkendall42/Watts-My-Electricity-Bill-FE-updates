@@ -40,8 +40,6 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 		const queryParams = new URLSearchParams({
 			nickname: nickname,
 			zipcode: zipcode,
-			// latitude: lat,
-			// longitude: long,
 			residence_type: residenceType,
 			num_residents: occupants,
 			efficiency_level: energyUsage
@@ -64,8 +62,6 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   function clearInput() {
 		setNickname('');
 		setZipcode('');
-    // setLat('');
-    // setLong('');
     setResidenceType('');
     setOccupants('');
     setEnergyUsage('');
@@ -108,8 +104,8 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
           id="energyUsage"
           name="energyUsage"
           min="1"
-          max="2"
-          step="0.1"
+          max="10"
+          step="1"
           value={energyUsage}
           onChange={e => setEnergyUsage(e.target.value)}
           className="energy-slider"
@@ -127,6 +123,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
           />
           Apartment
         </label>
+
         <label>
           <input
             type="radio"

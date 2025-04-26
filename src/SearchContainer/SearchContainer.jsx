@@ -4,8 +4,6 @@ import './SearchContainer.css';
 const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 	const [nickname, setNickname] = useState('');
 	const [zipcode, setZipcode] = useState('');
-  // const [lat, setLat] = useState('');
-  // const [long, setLong] = useState('');
   const [residenceType, setResidenceType] = useState('');
   const [occupants, setOccupants] = useState('');
   const [energyUsage, setEnergyUsage] = useState('');
@@ -36,7 +34,6 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 
     if (user !== '' && reportNicknames.includes(nickname)) {
       error = "Error: attempted duplicate nickname; try again!"
-      //NOTE: we should also provide user feedback here!
     } else if (zipcode.length !== 5) {
       setError("Error: Invalid zip code, try 5 digits!")
     } else if (occupants < 1) {

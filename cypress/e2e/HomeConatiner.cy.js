@@ -51,4 +51,36 @@ describe('HomeContainer and ResultsContainer', () => {
 		cy.get('.loginContainer').should('exist')
 		cy.contains('User:')
 	})
+
+	it('displays the correct error when zipcode field is invalid', () => {
+		cy.get('input[name="nickname"]').type('Test Home')
+		cy.get('input[name="zipcode"]').type('8023677')
+		cy.get('input[type="radio"][value="apartment"]').check()
+		cy.get('input[type="range"][name="energyUsage"]').invoke('val', 7).trigger('input')
+		cy.get('input[name="occupants"]').type('2')
+
+		cy.get('form button[type="submit"]').click()
+		cy.get('.results-window').within(() => {
+			cy.get('p').first().should('contain', 'Your Estimated Energy Usage and Costs for "Test Home"')
+			cy.get('button').should('exist')
+		})
+
+		cy.get('form')
+			cy.get('p').first().should('contain', "Error: Invalid zip code, try 5 digits!")
+
+	})
+
+	it('displays the correct error when occupant field is invalid', () => {
+		cy.get('input[name="nickname"]').type('Test Home')
+		cy.get('input[name="zipcode"]').type('80236')
+		cy.get('input[type="radio"][value="apartment"]').check()
+		cy.get('input[type="range"][name="energyUsage"]').invoke('val', 7).trigger('input')
+		cy.get('input[name="occupants"]').type('0')
+
+		cy.get('form button[type="submit"]').click()
+
+		cy.get('form')
+			cy.get('p').first().should('contain', "Error: There must be at least 1 occupant!")
+
+	})
 })

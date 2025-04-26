@@ -75,6 +75,8 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   }
 
   return (
+    <div>
+
     <form onSubmit={submitSearch}>
       <input
         type='text'
@@ -143,10 +145,11 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
         </label>
       </div>
 
-      <p>{error}</p>
 
-      <button type='submit' disabled='false'>SUBMIT</button>
+      <button type='submit'>SUBMIT</button>
     </form>
+      <p>{error}</p>
+    </div>
   );
 };
 

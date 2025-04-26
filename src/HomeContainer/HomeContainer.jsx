@@ -5,18 +5,6 @@ import { NavLink, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 function HomeContainer({ user, results, setResults }) {
-
-	// if(results) {
-	// 	setResults(null)
-	// }
-	// setResults(null)			//This is causing double-rendering component errors, but only occasionally...can't really tell why.
-
-	//My attempt at an event listener for when we change routes:
-	// let location = useLocation()
-	// useEffect({
-	// 	console.log("Route changed to: ", location.pathname)
-	// }, [location])
-
 	return (
 		<div className='HomeContainer'>
 			<div className="left-side">

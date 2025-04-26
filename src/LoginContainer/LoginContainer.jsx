@@ -13,11 +13,8 @@ const LoginContainer = ({ user, setUser }) => {
     const navigateToPage = useNavigate()
 
     //Get all usernames for the dropdown
-    //NOTE: later, if we have an empty user list, should probably give message before rendering dropdown (this is also why 'null' vs '[]' used initially)
     if (!userItems) {
-        fetch("http://localhost:3000/api/v1/users", {
-            //Maybe I don't even need these {} here?
-        })
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users`)
         .then(response => response.json())
         .then(data => {
             setUserItems(data)
@@ -48,8 +45,6 @@ const LoginContainer = ({ user, setUser }) => {
         }).id
     }
 
-    //Need the if since call was async
-    //Alt: use useEffect() for this!
     let usernames = []
     if (userItems) {
         usernames = userItems.map((user) => {
@@ -59,10 +54,6 @@ const LoginContainer = ({ user, setUser }) => {
 
     return (
         <div className='loginContainer'>
-			<nav className='loginNav'>
-				<NavLink to="/" className="nav">Search</NavLink>
-				<NavLink to="/login" className="nav">Login</NavLink>
-			</nav>
             <div className='loginInfo'>
                 <p>
                     {"User:  "} 

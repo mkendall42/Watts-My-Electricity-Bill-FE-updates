@@ -4,23 +4,23 @@ import './UserReportsContainer.css';
 import ResultsContainer from '../ResultsContainer/ResultsContainer.jsx';
 import SearchContainer from '../SearchContainer/SearchContainer.jsx';
 
-const UserReportsContainer = ({ results, setResults, isNewSearch, setIsNewSearch }) => {
+const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNewSearch }) => {
   const { user_id } = useParams();
   const location = useLocation();
   const [reports, setReports] = useState([]);
 
-  const isSearchPage = location.pathname === `/user/${user_id}`;
-  const isSavedPage = location.pathname === `/user/${user_id}/saved`;
+  const isSearchPage = location.pathname === `/user/${user}`;
+  const isSavedPage = location.pathname === `/user/${user}/saved`;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/users/${user_id}/reports`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user}/reports`)
       .then(res => res.json())
       .then(data => setReports(data))
       .catch(err => console.error('Error fetching reports:', err));
-  }, [user_id, isNewSearch]);
+  }, [user, isNewSearch]);
 
   const fetchReportInfo = (reportId) => {
-    fetch(`http://localhost:3000/api/v1/reports/${reportId}`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/reports/${reportId}`)
       .then(res => res.json())
       .then(data => {
         console.log("fetchReportInfo data: ", data);
@@ -35,23 +35,24 @@ const UserReportsContainer = ({ results, setResults, isNewSearch, setIsNewSearch
 
   return (
     <div className="user-reports">
-      <nav>
-        <NavLink to={`/user/${user_id}`} end className="nav">Search</NavLink>
-        <NavLink to={`/user/${user_id}/saved`} className="nav">Saved Reports</NavLink>
-        <NavLink to="/" className="nav">Log out</NavLink>
-      </nav>
+        <div className='left-side'>
+            <nav>
+                <NavLink to={`/user/${user}`} end className="nav">Search</NavLink>
+                <NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
+                <NavLink to="/" className="nav">Log out</NavLink>
+            </nav>
 
-      <div className="user-content">
-        {isSearchPage && (
-          <>
-            <SearchContainer user={user_id} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-            <ResultsContainer user={user_id} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-          </>
-        )}
+        <div className="user-content">
+            {isSearchPage && (
+            <>
+                <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+                <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+            </>
+            )}
 
         {isSavedPage && (
           <div className='reportsContainer'>
-            <h2>User ID {user_id}'s Reports</h2>
+            <h2>User ID {user}'s Reports</h2>
             <div className='buttonList'>
               {reports.length > 0 ? (
                 reports.map((report) => (
@@ -63,10 +64,11 @@ const UserReportsContainer = ({ results, setResults, isNewSearch, setIsNewSearch
                 <p>No saved reports.</p>
               )}
             </div>
-            <ResultsContainer user={user_id} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
           </div>
-        )}
+    )}
+        </div>
       </div>
+    <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
     </div>
   );
 };

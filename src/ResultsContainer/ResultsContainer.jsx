@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     const [timeframe, setTimeframe] = useState("")
-    const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
+    const [utilityRateType, setUtilityRateType] = useState("")
     const [isSaveable, setIsSaveable] = useState(false)
     const [saveButtonMessage, setSaveButtonMessage] = useState("Save these results!")
 
@@ -27,8 +27,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     const timeframeList = ["Annual", "Monthly"]
     const utilityRateTypeList = ["Residential", "Commercial", "Industrial"]
 
-    //Things to take care of first:
-    //Ensure proper display if erroneous / incopmlete results (NOTE: still not displaying correctly on first page load; works after that)
     if (results === null || results.status === 422) {
         // nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
     }
@@ -65,8 +63,7 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
 			headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": true }
 		}
 
-        //BE POST call to create new report
-        fetch("http://localhost:3000/api/v1/reports", parameters)
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/reports`, parameters)
         .then(response => response.json())
         .then(data => {
             //Check successful; if so, provide text for updating save button and disable it (maybe call function here)
@@ -129,7 +126,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
                 </section>
                 {/* {isSaveable ? ( */}
                 {(isNewSearch && user !== '') ? (
-                    // <button onClick={() => saveResults()}>Save these results!</button>
                     <button onClick={() => saveResults()}>{saveButtonMessage}</button>
                 ) : (
                     <button className="button-disabled" disabled={true}>

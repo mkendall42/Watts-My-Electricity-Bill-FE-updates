@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "cypress": "cypress open"
+  
   },
   "dependencies": {
     "react": "^19.0.0",

@@ -67,9 +67,7 @@ const ResultsContainer = ({ user, results }) => {
 		}
 
         //BE POST call to create new report
-        fetch("http://localhost:3000/api/v1/reports", parameters, {
-            //Maybe I don't even need these {} here?
-        })
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/reports`, parameters)
         .then(response => response.json())
         .then(data => {
             //Check successful; if so, provide text for updating save button and disable it (maybe call function here)

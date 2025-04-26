@@ -31,8 +31,7 @@ const SearchContainer = ({ setResults }) => {
 
 		console.log(queryParams)
 
-		fetch(`http://localhost:3000/api/v1/utilities?${queryParams}`, {
-		})
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/utilities?${queryParams}`)
 			.then(response => response.json())
 			.then(data => setResults(data))
 			.then(data => {

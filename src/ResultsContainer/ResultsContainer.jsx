@@ -8,14 +8,13 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     const [isSaveable, setIsSaveable] = useState(false)
     const [saveButtonMessage, setSaveButtonMessage] = useState("Save these results!")
 
+    //NOTE: may no longer need isSaveable state var given the enhanced role of isNewSearch.  Check again during final refactors / cleanup!
+
     let nameAndLocation = ""
     let stateUtilText = ""
     let localUtilText = ""
 
     if (results) {
-
-        // debugger
-
         nameAndLocation = `Your Estimated Energy Usage and Costs for "${results.nickname}"`
         stateUtilText = ""
         localUtilText = ""
@@ -34,34 +33,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
         // nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
     }
 
-    // if (user !== '' && results && isSaveable === false) {
-    //     //User must be logged in, results must be valid, and the results must be unique (not already in DB)
-    //     //BE query via ReportsController#show to verify this is a new / unique set of results
-    //     //This is awfully roundabout, could be refactored later (maybe pass a true/false prop in if e.g. coming from UserReportsContainer)
-    //     fetch(`http://localhost:3000/api/v1/users/${user}/reports`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             //Compare against existing reports' nicknames
-    //             let foundReport = data.find((report) => {
-    //                 return report.nickname === results.nickname
-    //             })
-
-    //             if (!foundReport) {
-    //                 setIsSaveable(true)
-    //             }
-    //         })
-    //         .catch(err => console.error('Error fetching reports:', err))
-    //     // setIsSaveable(true)
-    // } else {
-    //     // setSaveButtonMessage("Login to save results")
-    // }
-
-    // useEffect(() => {
-    //     if (user !== '' && results && isSaveable === false) {
-    //         setIsSaveable(true)
-    //     }
-    // }, [])
-
     useEffect(() => {
         if (user === '') {
             setSaveButtonMessage("Login to save results")
@@ -75,10 +46,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     }, [user, results, isSaveable])
 
     const saveResults = () => {
-        //Collect appropriate results to form JSON body
-
-        // debugger
-        
         const reportData = {
             nickname: results.nickname,
             energy_consumption: results.energy_consumption,
@@ -104,7 +71,7 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
         .then(data => {
             //Check successful; if so, provide text for updating save button and disable it (maybe call function here)
             console.log("Result of save request: ", data)
-            setIsSaveable(false)                                //PROBLEM: this triggers the useEffect(), which makes it skip past the 5000ms message.  How to fix?
+            setIsSaveable(false)
             setSaveButtonMessage("Results saved!")
             setIsNewSearch(false)
             setTimeout(() => {

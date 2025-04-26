@@ -14,7 +14,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   //If user is logged in, load all report nicknames for that user to have on hand for checking uniqueness upon form submission
   useEffect(() => {
     if (user !== '') {
-      fetch(`http://localhost:3000/api/v1/users/${user}/reports`)
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user_id}/reports`)
         .then(res => res.json())
         .then(data => {
           console.log("Loading existing report nicknames")
@@ -31,10 +31,16 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   function submitSearch(event) {
     event.preventDefault();
 
+    let error = ""
+
     if (user !== '' && reportNicknames.includes(nickname)) {
-      console.log("Error: attempted duplicate nickname; try again!")
+      error = "Error: attempted duplicate nickname; try again!"
       //NOTE: we should also provide user feedback here!
-      return
+    if (!zipcode == 5)
+      error = "Error: Invalid zip code, try 5 digits!"
+    if (occupants < 1)
+      error = "Error: There must be at least 1 occupant!"
+      return <p>{error}</p>
     }
 
 		const queryParams = new URLSearchParams({

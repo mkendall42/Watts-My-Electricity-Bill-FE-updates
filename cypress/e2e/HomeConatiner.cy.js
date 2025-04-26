@@ -51,5 +51,4 @@ describe('HomeContainer and ResultsContainer', () => {
 		cy.get('.loginContainer').should('exist')
 		cy.contains('User:')
 	})
-	
 })

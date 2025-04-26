@@ -4,7 +4,7 @@ import SearchContainer from '../SearchContainer/SearchContainer'
 import ResultsContainer from '../ResultsContainer/ResultsContainer'
 // import 
 
-const UserContainer = ({ user, results, setResults }) => {
+const UserContainer = ({ user, results, setResults, isNewSearch, setIsNewSearch }) => {
 	const { userId } = useParams()
 
 	return (
@@ -19,12 +19,16 @@ const UserContainer = ({ user, results, setResults }) => {
 				<SearchContainer
 					user={user}
 					setResults={setResults}
+					isNewSearch={isNewSearch}
+					setIsNewSearch={setIsNewSearch}
 				/>
 			</div>
 
 			<ResultsContainer
 				user={user}
 				results={results}
+				isNewSearch={isNewSearch}
+				setIsNewSearch={setIsNewSearch}
 			/>
 		</div>
 	)

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './SearchContainer.css';
 
-const SearchContainer = ({ user, setResults }) => {
+const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 	const [nickname, setNickname] = useState('');
 	const [zipcode, setZipcode] = useState('');
   // const [lat, setLat] = useState('');
@@ -65,6 +65,7 @@ const SearchContainer = ({ user, setResults }) => {
 			.then(data => setResults(data))
 			.then(data => {
 				console.log('Success:', data);
+        setIsNewSearch(true)
 				clearInput();
 			})
 			.catch(error => console.error('Error:', error));

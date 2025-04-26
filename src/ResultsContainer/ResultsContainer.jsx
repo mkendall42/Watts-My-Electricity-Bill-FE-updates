@@ -2,7 +2,7 @@ import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContaine
 import './ResultsContainer.css';
 import { useState, useEffect } from 'react';
 
-const ResultsContainer = ({ user, results }) => {
+const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     const [timeframe, setTimeframe] = useState("")
     const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
     const [isSaveable, setIsSaveable] = useState(false)
@@ -34,38 +34,45 @@ const ResultsContainer = ({ user, results }) => {
         // nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
     }
 
-    if (user !== '' && results && isSaveable === false) {
-        //User must be logged in, results must be valid, and the results must be unique (not already in DB)
-        //BE query via ReportsController#show to verify this is a new / unique set of results
-        //This is awfully roundabout, could be refactored later (maybe pass a true/false prop in if e.g. coming from UserReportsContainer)
-        fetch(`http://localhost:3000/api/v1/users/${user}/reports`)
-            .then(res => res.json())
-            .then(data => {
-                //Compare against existing reports' nicknames
-                let foundReport = data.find((report) => {
-                    return report.nickname === results.nickname
-                })
+    // if (user !== '' && results && isSaveable === false) {
+    //     //User must be logged in, results must be valid, and the results must be unique (not already in DB)
+    //     //BE query via ReportsController#show to verify this is a new / unique set of results
+    //     //This is awfully roundabout, could be refactored later (maybe pass a true/false prop in if e.g. coming from UserReportsContainer)
+    //     fetch(`http://localhost:3000/api/v1/users/${user}/reports`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             //Compare against existing reports' nicknames
+    //             let foundReport = data.find((report) => {
+    //                 return report.nickname === results.nickname
+    //             })
 
-                if (!foundReport) {
-                    setIsSaveable(true)
-                }
-            })
-            .catch(err => console.error('Error fetching reports:', err))
-        // setIsSaveable(true)
-    } else {
-        // setSaveButtonMessage("Login to save results")
-    }
+    //             if (!foundReport) {
+    //                 setIsSaveable(true)
+    //             }
+    //         })
+    //         .catch(err => console.error('Error fetching reports:', err))
+    //     // setIsSaveable(true)
+    // } else {
+    //     // setSaveButtonMessage("Login to save results")
+    // }
+
+    // useEffect(() => {
+    //     if (user !== '' && results && isSaveable === false) {
+    //         setIsSaveable(true)
+    //     }
+    // }, [])
 
     useEffect(() => {
         if (user === '') {
             setSaveButtonMessage("Login to save results")
-        } else if (isSaveable) {
+        // } else if (isSaveable && isNewSearch) {
+        } else if (isNewSearch) {
             setSaveButtonMessage("Save these results!")
         } else {
             //This is a problem when a search as a guest is done, then a login is completed.  Need to fix this - perhaps by building in setIsSaveable() into processLogin(), which will require pre-validating unique report
             setSaveButtonMessage("Results already saved")
         }
-    }, [user, results, /*isSaveable*/])
+    }, [user, results, isSaveable])
 
     const saveResults = () => {
         //Collect appropriate results to form JSON body
@@ -99,6 +106,7 @@ const ResultsContainer = ({ user, results }) => {
             console.log("Result of save request: ", data)
             setIsSaveable(false)                                //PROBLEM: this triggers the useEffect(), which makes it skip past the 5000ms message.  How to fix?
             setSaveButtonMessage("Results saved!")
+            setIsNewSearch(false)
             setTimeout(() => {
                 console.log("Timeout reached!")
                 setSaveButtonMessage("Results already saved")
@@ -152,7 +160,8 @@ const ResultsContainer = ({ user, results }) => {
                         )}
                     </div>
                 </section>
-                {isSaveable ? (
+                {/* {isSaveable ? ( */}
+                {(isNewSearch && user !== '') ? (
                     // <button onClick={() => saveResults()}>Save these results!</button>
                     <button onClick={() => saveResults()}>{saveButtonMessage}</button>
                 ) : (

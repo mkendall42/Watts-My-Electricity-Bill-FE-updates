@@ -10,6 +10,7 @@ import UserContainer from './UserContainer/UserContainer'
 function App() {
 	const [user, setUser] = useState('')
 	const [results, setResults] = useState(null)
+    const [isNewSearch, setIsNewSearch] = useState(false)       //Tracks if the search is new and therefore 'saveable' (not best naming scheme due to prior var issues)
 
     //Detect a route change; if returning to HomeContainer, clear user and results (I think this always makes sense...perhaps there is a specific route where it doesn't?)
     const location = useLocation()
@@ -30,11 +31,11 @@ function App() {
 		<main className='App'>
 			<h1>Watts My Electrical Bill</h1>
 			<Routes>
-				<Route path="/" element={<HomeContainer user={user} results={results} setResults={setResults} />} />
+				<Route path="/" element={<HomeContainer user={user} results={results} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />} />
 				<Route path='/login' element={<LoginContainer user={user} setUser={setUser} />} />
 				<Route path='/user' element={<UserContainer />} />
-				<Route path="/user/:user_id" element={<UserContainer user={user} results={results} setResults={setResults}/>} />
-				<Route path="/user/:user_id/saved" element={<UserReportsContainer results={results} setResults={setResults}/>}>
+				<Route path="/user/:user_id" element={<UserContainer user={user} results={results} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />} />
+				<Route path="/user/:user_id/saved" element={<UserReportsContainer results={results} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />}>
 					<Route path=":id" element={<ResultsContainer />} />
 				</Route>
 			</Routes>

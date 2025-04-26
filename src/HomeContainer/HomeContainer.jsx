@@ -4,7 +4,7 @@ import ResultsContainer from '../ResultsContainer/ResultsContainer'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-function HomeContainer({ user, results, setResults }) {
+function HomeContainer({ user, results, setResults, isNewSearch, setIsNewSearch }) {
 	return (
 		<div className='HomeContainer'>
 			<div className="left-side">
@@ -16,12 +16,16 @@ function HomeContainer({ user, results, setResults }) {
 				<SearchContainer
 					user={user}
 					setResults={setResults}
+					isNewSearch={isNewSearch}
+					setIsNewSearch={setIsNewSearch}
 				/>
 			</div>
 
 			<ResultsContainer
 				user={user}
 				results={results}
+				isNewSearch={isNewSearch}
+				setIsNewSearch={setIsNewSearch}
 			/>
 
 		</div>

@@ -27,7 +27,6 @@ function HomeContainer({ user, results, setResults, isNewSearch, setIsNewSearch 
 				isNewSearch={isNewSearch}
 				setIsNewSearch={setIsNewSearch}
 			/>
-
 		</div>
 	);
 }

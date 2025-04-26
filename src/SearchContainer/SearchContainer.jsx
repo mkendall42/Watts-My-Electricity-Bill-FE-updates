@@ -142,7 +142,6 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
         </label>
       </div>
 
-
       <button type='submit'>SUBMIT</button>
     </form>
       <p>{error}</p>

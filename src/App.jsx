@@ -12,7 +12,6 @@ function App() {
 	const [results, setResults] = useState(null)
     const [isNewSearch, setIsNewSearch] = useState(false)
 
-
     const location = useLocation()
     useEffect(() => {
         if (location.pathname === "/") {

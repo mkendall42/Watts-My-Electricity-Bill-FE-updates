@@ -2,10 +2,8 @@ import { useParams, NavLink, Link } from 'react-router-dom'
 import './UserContainer.css'
 import SearchContainer from '../SearchContainer/SearchContainer'
 import ResultsContainer from '../ResultsContainer/ResultsContainer'
-// import 
 
 const UserContainer = ({ results, user,  setResults, isNewSearch, setIsNewSearch }) => {
-	// const { user_id } = useParams()
 
 	return (
 		<div className='UserContainer'>

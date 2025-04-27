@@ -8,8 +8,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     const [isSaveable, setIsSaveable] = useState(false)
     const [saveButtonMessage, setSaveButtonMessage] = useState("Save these results!")
 
-    //NOTE: may no longer need isSaveable state var given the enhanced role of isNewSearch.  Check again during final refactors / cleanup!
-
     let nameAndLocation = ""
     let stateUtilText = ""
     let localUtilText = ""
@@ -29,16 +27,15 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
 
     if (results === null || results.status === 422) {
         // nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
+        //This should no longer be needed, given our other updates.  Leaving as placeholder just in case
     }
 
     useEffect(() => {
         if (user === '') {
             setSaveButtonMessage("Login to save results")
-        // } else if (isSaveable && isNewSearch) {
         } else if (isNewSearch) {
             setSaveButtonMessage("Save these results!")
         } else {
-            //This is a problem when a search as a guest is done, then a login is completed.  Need to fix this - perhaps by building in setIsSaveable() into processLogin(), which will require pre-validating unique report
             setSaveButtonMessage("Results already saved")
         }
     }, [user, results, isSaveable])
@@ -79,7 +76,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
         })
         .catch(error => {
             console.error("Error: ", error)
-            //Update the button appropriately with error / notification (same function?)
         })
     }
 
@@ -124,12 +120,10 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
                         )}
                     </div>
                 </section>
-                {/* {isSaveable ? ( */}
                 {(isNewSearch && user !== '') ? (
                     <button onClick={() => saveResults()}>{saveButtonMessage}</button>
                 ) : (
                     <button className="button-disabled" disabled={true}>
-                        {/* {user === '' ? "Login to save results" : "Results already saved"} */}
                         {saveButtonMessage}
                     </button>
                 )}

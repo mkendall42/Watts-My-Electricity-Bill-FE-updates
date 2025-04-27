@@ -5,7 +5,6 @@ import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContaine
 import { useState } from 'react'
 
 
-//This still needs to be properly implemented (it's not technically even capturing a specific user; and we need IDs)
 const LoginContainer = ({ user, setUser }) => {
     const [userItems, setUserItems] = useState(null)
     const [selectedUser, setSelectedUser] = useState(null)
@@ -25,7 +24,6 @@ const LoginContainer = ({ user, setUser }) => {
     }
 
     const processUserSelection = (username) => {
-        //Later: can replace this method simply with setSelectedUser().  This was just for testing / consistency check
         console.log("Newly selected user: ", username)
         setSelectedUser(username)
     }

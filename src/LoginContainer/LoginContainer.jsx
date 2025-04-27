@@ -5,7 +5,6 @@ import DropdownMenuContainer from '../DropdownMenuContainer/DropdownMenuContaine
 import { useState } from 'react'
 
 
-//This still needs to be properly implemented (it's not technically even capturing a specific user; and we need IDs)
 const LoginContainer = ({ user, setUser }) => {
     const [userItems, setUserItems] = useState(null)
     const [selectedUser, setSelectedUser] = useState(null)
@@ -13,7 +12,6 @@ const LoginContainer = ({ user, setUser }) => {
     const navigateToPage = useNavigate()
 
     //Get all usernames for the dropdown
-    //NOTE: later, if we have an empty user list, should probably give message before rendering dropdown (this is also why 'null' vs '[]' used initially)
     if (!userItems) {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users`)
         .then(response => response.json())
@@ -26,7 +24,6 @@ const LoginContainer = ({ user, setUser }) => {
     }
 
     const processUserSelection = (username) => {
-        //Later: can replace this method simply with setSelectedUser().  This was just for testing / consistency check
         console.log("Newly selected user: ", username)
         setSelectedUser(username)
     }
@@ -46,8 +43,6 @@ const LoginContainer = ({ user, setUser }) => {
         }).id
     }
 
-    //Need the if since call was async
-    //Alt: use useEffect() for this!
     let usernames = []
     if (userItems) {
         usernames = userItems.map((user) => {

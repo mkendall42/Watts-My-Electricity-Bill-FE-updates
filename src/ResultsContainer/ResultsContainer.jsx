@@ -4,11 +4,9 @@ import { useState, useEffect } from 'react';
 
 const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     const [timeframe, setTimeframe] = useState("")
-    const [utilityRateType, setUtilityRateType] = useState("")      //Is this really necessary?  I think so (to ensure render happens when it changes, but I don't know)
+    const [utilityRateType, setUtilityRateType] = useState("")
     const [isSaveable, setIsSaveable] = useState(false)
     const [saveButtonMessage, setSaveButtonMessage] = useState("Save these results!")
-
-    //NOTE: may no longer need isSaveable state var given the enhanced role of isNewSearch.  Check again during final refactors / cleanup!
 
     let nameAndLocation = ""
     let stateUtilText = ""
@@ -27,20 +25,17 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     const timeframeList = ["Annual", "Monthly"]
     const utilityRateTypeList = ["Residential", "Commercial", "Industrial"]
 
-    //Things to take care of first:
-    //Ensure proper display if erroneous / incopmlete results (NOTE: still not displaying correctly on first page load; works after that)
     if (results === null || results.status === 422) {
         // nameAndLocation = "Error and/or nothing searched for yet (placeholder)"
+        //This should no longer be needed, given our other updates.  Leaving as placeholder just in case
     }
 
     useEffect(() => {
         if (user === '') {
             setSaveButtonMessage("Login to save results")
-        // } else if (isSaveable && isNewSearch) {
         } else if (isNewSearch) {
             setSaveButtonMessage("Save these results!")
         } else {
-            //This is a problem when a search as a guest is done, then a login is completed.  Need to fix this - perhaps by building in setIsSaveable() into processLogin(), which will require pre-validating unique report
             setSaveButtonMessage("Results already saved")
         }
     }, [user, results, isSaveable])
@@ -65,8 +60,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
 			headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": true }
 		}
 
-        //BE POST call to create new report
-
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/reports`, parameters)
         .then(response => response.json())
         .then(data => {
@@ -83,7 +76,6 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
         })
         .catch(error => {
             console.error("Error: ", error)
-            //Update the button appropriately with error / notification (same function?)
         })
     }
 
@@ -128,13 +120,10 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
                         )}
                     </div>
                 </section>
-                {/* {isSaveable ? ( */}
                 {(isNewSearch && user !== '') ? (
-                    // <button onClick={() => saveResults()}>Save these results!</button>
                     <button onClick={() => saveResults()}>{saveButtonMessage}</button>
                 ) : (
                     <button className="button-disabled" disabled={true}>
-                        {/* {user === '' ? "Login to save results" : "Results already saved"} */}
                         {saveButtonMessage}
                     </button>
                 )}

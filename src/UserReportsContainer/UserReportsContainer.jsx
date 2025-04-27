@@ -35,19 +35,20 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
 
   return (
     <div className="user-reports">
-      <nav>
-        <NavLink to={`/user/${user}`} end className="nav">Search</NavLink>
-        <NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
-        <NavLink to="/" className="nav">Log out</NavLink>
-      </nav>
+        <div className='left-side'>
+            <nav>
+                <NavLink to={`/user/${user}`} end className="nav">Search</NavLink>
+                <NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
+                <NavLink to="/" className="nav">Log out</NavLink>
+            </nav>
 
-      <div className="user-content">
-        {isSearchPage && (
-          <>
-            <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-            <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-          </>
-        )}
+        <div className="user-content">
+            {isSearchPage && (
+            <>
+                <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+                <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+            </>
+            )}
 
         {isSavedPage && (
           <div className='reportsContainer'>
@@ -63,10 +64,11 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
                 <p>No saved reports.</p>
               )}
             </div>
-            <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
           </div>
-        )}
+    )}
+        </div>
       </div>
+    <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
     </div>
   );
 };

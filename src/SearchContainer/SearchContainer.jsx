@@ -33,7 +33,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
     setError("")
 
     if (user !== '' && reportNicknames.includes(nickname)) {
-      error = "Error: attempted duplicate nickname; try again!"
+      setError("Error: attempted duplicate nickname; try again!")
     } else if (zipcode.length !== 5) {
       setError("Error: Invalid zip code, try 5 digits!")
     } else if (occupants < 1) {

@@ -6,7 +6,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 	const [zipcode, setZipcode] = useState('');
   const [residenceType, setResidenceType] = useState('');
   const [occupants, setOccupants] = useState('');
-  const [energyUsage, setEnergyUsage] = useState('');
+  const [energyUsage, setEnergyUsage] = useState(5);    //Assuming a 1-10 range
   const [reportNicknames, setReportNicknames] = useState([]);
   const [error, setError] = useState("");
 

@@ -53,12 +53,12 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 
     fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/utilities?${queryParams}`)
 			.then(response => response.json())
-			.then(data => setResults(data))
 			.then(data => {
-				console.log('Success:', data);
+        console.log("Results retrieved: ", data)    //Remove eventually?  Useful in checking for now...
+        setResults(data)
         setIsNewSearch(true)
-				clearInput();
-			})
+        clearInput();
+      })
 			.catch(error => console.error('Error:', error));
 
   }
@@ -68,7 +68,7 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 		setZipcode('');
     setResidenceType('');
     setOccupants('');
-    setEnergyUsage('');
+    setEnergyUsage(5);
   }
 
   return (

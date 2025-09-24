@@ -2,10 +2,11 @@
     display: flex;
     background-color: rgb(163, 163, 163);
     flex-direction: row;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
+    justify-content: space-around;
     align-items: center;
-    width: 100vw;
-    padding: 4em;
+    width: 90vw;
+    padding: 1em;
 }
 
 .left-side {

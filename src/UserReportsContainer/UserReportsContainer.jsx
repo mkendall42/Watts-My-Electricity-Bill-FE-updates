@@ -1,4 +1,4 @@
-import { useParams, NavLink, useLocation } from 'react-router-dom';
+import { useParams, NavLink, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './UserReportsContainer.css';
 import ResultsContainer from '../ResultsContainer/ResultsContainer.jsx';
@@ -33,22 +33,25 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
       });
   };
 
+  //NOTES: this could use some reorganizing.  Things to do:
+  //(DONE) 1. Change to basic correct nav rending / consistency with other pages
+  //(DONE) 2. Remove double-rendering (I think?) of ResultsContainer
+  //3. Maybe - build a new component for ReportsContainer (since it's getting unwieldy already...)
+
   return (
     <div className="user-reports">
-        <div className='left-side'>
-            <nav>
-                <NavLink to={`/user/${user}`} end className="nav">Search</NavLink>
-                <NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
-                <NavLink to="/" className="nav">Log out</NavLink>
-            </nav>
+      <nav>
+        <NavLink to={`/user/${user}`} end className="nav-item">Search</NavLink>
+        <NavLink to={`/user/${user}/saved`} className="nav-item">Saved Reports</NavLink>
+        <Link to="/" className="nav-item">Log out</Link>
+      </nav>
 
-        <div className="user-content">
-            {isSearchPage && (
-            <>
-                <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-                <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-            </>
-            )}
+      <div className="left-right-sides">
+        {isSearchPage && (
+          <>
+            <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+          </>
+        )}
 
         {isSavedPage && (
           <div className='reportsContainer'>
@@ -65,10 +68,10 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
               )}
             </div>
           </div>
-    )}
-        </div>
+        )}
+
+        <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
       </div>
-    <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
     </div>
   );
 };

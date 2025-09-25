@@ -72,78 +72,80 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
   }
 
   return (
-    <div>
-
-    <form onSubmit={submitSearch}>
-      <input
-        type='text'
-        placeholder='Nickname'
-        name='nickname'
-        value={nickname}
-        onChange={e => setNickname(e.target.value)}
-      />
-
-      <input
-        type='text'
-        placeholder='Zip code'
-        name='zipcode'
-        value={zipcode}
-        onChange={e => setZipcode(e.target.value)}
-      />
-      
-      <input
-        type='number'
-        placeholder='Number of Occupants'
-        name='occupants'
-        value={occupants}
-        onChange={e => setOccupants(e.target.value)}
-      />
-
-      <div className="energy-slider-container">
-        <label htmlFor="energyUsage">Energy Usage Priority</label>
-        <div className="slider-labels">
-          <span>Eco-Friendly</span>
-          <span>Comfort</span>
-        </div>
+    <div className="search-container">
+      <form onSubmit={submitSearch}>
         <input
-          type="range"
-          id="energyUsage"
-          name="energyUsage"
-          min="1"
-          max="10"
-          step="1"
-          value={energyUsage}
-          onChange={e => setEnergyUsage(e.target.value)}
-          className="energy-slider"
+          type='text'
+          placeholder='Nickname'
+          name='nickname'
+          value={nickname}
+          onChange={e => setNickname(e.target.value)}
         />
-      </div>
 
-      <div className="residence-type">
-        <label>
+        <input
+          type='text'
+          placeholder='Zip code'
+          name='zipcode'
+          value={zipcode}
+          onChange={e => setZipcode(e.target.value)}
+        />
+        
+        <input
+          type='number'
+          placeholder='Number of Occupants'
+          name='occupants'
+          value={occupants}
+          onChange={e => setOccupants(e.target.value)}
+        />
+
+        <div className="energy-slider-container">
+          <label htmlFor="energyUsage">Energy Usage Priority</label>
+          <div className="slider-labels">
+            <span>Eco-Friendly</span>
+            <span>Comfort</span>
+          </div>
           <input
-            type="radio"
-            name="residenceType"
-            value="apartment"
-            checked={residenceType === "apartment"}
-            onChange={e => setResidenceType(e.target.value)}
+            type="range"
+            id="energyUsage"
+            name="energyUsage"
+            min="1"
+            max="10"
+            step="1"
+            value={energyUsage}
+            onChange={e => setEnergyUsage(e.target.value)}
+            className="energy-slider"
           />
-          Apartment
-        </label>
+        </div>
 
-        <label>
-          <input
-            type="radio"
-            name="residenceType"
-            value="house"
-            checked={residenceType === "house"}
-            onChange={e => setResidenceType(e.target.value)}
-          />
-          House
-        </label>
-      </div>
+        <div className="residence-type-container">
+          <label>Type of Residence</label>
+          <div className="residence-type">
+            <label>
+              <input
+                type="radio"
+                name="residenceType"
+                value="apartment"
+                checked={residenceType === "apartment"}
+                onChange={e => setResidenceType(e.target.value)}
+              />
+              Apartment
+            </label>
 
-      <button type='submit'>SUBMIT</button>
-    </form>
+            <label>
+              <input
+                type="radio"
+                name="residenceType"
+                value="house"
+                checked={residenceType === "house"}
+                onChange={e => setResidenceType(e.target.value)}
+              />
+              House
+            </label>
+          </div>
+        </div>
+
+        <button type='submit'>SUBMIT</button>
+      </form>
       <p>{error}</p>
     </div>
   );

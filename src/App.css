@@ -1,5 +1,8 @@
-.nav {
-  width: 30%;
+.App {
+  /*Hopefully this controls the main parent element...*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .active {
@@ -11,16 +14,6 @@
   color: #A4D555
 }
 
-nav {
-  align-items: center;
-  background-color: #A4D555;
-  display: flex;
-  font-size: 1.5em;
-  height: 10vh;
-  justify-content: space-around;
-  width: 100%;
-}
-
 h1 {
   color: #fffb00;
   font-size: 2.5em;
@@ -28,4 +21,43 @@ h1 {
   margin: 0;
   text-align: center;
   padding: 0.5em;
+}
+
+/* This is used on all major routes, so it seems sensical to just have it here... */
+.left-right-sides {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 100%;
+}
+
+/* All nav menu items are grouped here now; overrides can be implemented in sub-files */
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 12px;
+  gap: 0.5em;
+  font-size: 1.5em;
+  /* justify-content: space-around; */
+  margin: 1%;
+  width: 45vw;    /*NOTE: arbitrarily set for now due to WEIRD BUG.  Return later?*/
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 0.4em 1em;
+  margin: 1%;
+  white-space: nowrap;
+  /*NOTE: could experiment with flex: 1 and related properties too re bug later*/
+}
+
+.nav-item.active {
+  background-color: #ffd900;
+  color: #333;
 }

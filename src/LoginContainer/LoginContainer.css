@@ -24,11 +24,13 @@
     padding: 0.5em 1em;
   }
   
+  /* NOTE: this seems to be getting incorporated on other pages too.  Just centralize!!! */
+
   .nav {
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    padding: 0.5em 1em;
+    padding: 0.4em 1em;
     border-radius: 8px;
   }
   

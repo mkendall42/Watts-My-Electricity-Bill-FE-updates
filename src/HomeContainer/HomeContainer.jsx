@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react'
 function HomeContainer({ user, results, setResults, isNewSearch, setIsNewSearch }) {
 	return (
 		<div className='HomeContainer'>
-			{/* <div className="left-side"> */}
 			<nav>
 				<NavLink to="/" className="nav-item">Search</NavLink>
 				<NavLink to="/login" className="nav-item">Login</NavLink>
@@ -20,7 +19,6 @@ function HomeContainer({ user, results, setResults, isNewSearch, setIsNewSearch 
 					isNewSearch={isNewSearch}
 					setIsNewSearch={setIsNewSearch}
 				/>
-			{/* </div> */}
 
 				<ResultsContainer
 					user={user}

@@ -1,4 +1,4 @@
-import { useParams, NavLink, useLocation } from 'react-router-dom';
+import { useParams, NavLink, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './UserReportsContainer.css';
 import ResultsContainer from '../ResultsContainer/ResultsContainer.jsx';
@@ -35,7 +35,7 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
 
   //NOTES: this could use some reorganizing.  Things to do:
   //(DONE) 1. Change to basic correct nav rending / consistency with other pages
-  //2. Remove double-rendering (I think?) of ResultsContainer
+  //(DONE) 2. Remove double-rendering (I think?) of ResultsContainer
   //3. Maybe - build a new component for ReportsContainer (since it's getting unwieldy already...)
 
   return (
@@ -43,36 +43,32 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
       <nav>
         <NavLink to={`/user/${user}`} end className="nav-item">Search</NavLink>
         <NavLink to={`/user/${user}/saved`} className="nav-item">Saved Reports</NavLink>
-        <NavLink to="/" className="nav-item">Log out</NavLink>
+        <Link to="/" className="nav-item">Log out</Link>
       </nav>
 
       <div className="left-right-sides">
-        {/* <div className="user-content"> */}
-          {isSearchPage && (
-            <>
-              <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-              {/* <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} /> */}
-            </>
-          )}
+        {isSearchPage && (
+          <>
+            <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+          </>
+        )}
 
-          {isSavedPage && (
-            <div className='reportsContainer'>
-              <h2>User ID {user}'s Reports</h2>
-              <div className='buttonList'>
-                {reports.length > 0 ? (
-                  reports.map((report) => (
-                    <button key={report.id} onClick={() => fetchReportInfo(report.id)}>
-                      {report.nickname}
-                    </button>
-                  ))
-                ) : (
-                  <p>No saved reports.</p>
-                )}
-              </div>
+        {isSavedPage && (
+          <div className='reportsContainer'>
+            <h2>User ID {user}'s Reports</h2>
+            <div className='buttonList'>
+              {reports.length > 0 ? (
+                reports.map((report) => (
+                  <button key={report.id} onClick={() => fetchReportInfo(report.id)}>
+                    {report.nickname}
+                  </button>
+                ))
+              ) : (
+                <p>No saved reports.</p>
+              )}
             </div>
-          )}
-          {/* </div> */}
-        {/* </div> */}
+          </div>
+        )}
 
         <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
       </div>

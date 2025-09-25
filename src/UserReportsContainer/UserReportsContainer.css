@@ -1,24 +1,61 @@
 .user-reports {
     display: flex;
     background-color: rgb(163, 163, 163);
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100vw;
-    padding: 4em;
+    /* flex-direction: row; */
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    justify-content: space-around;
+    /* align-items: center; */
+    align-items: flex-start;
+    width: 90vw;
+    padding: 1em;
 }
 
-.left-side {
+/* .left-side {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     flex: 0.5;
-}
+} */
 
 .ResultsContainer {
     flex: 2;
+    /* Could use flex-basis here instead I suppose */
+    /* Actually, I don't think this is ever even being used... */
 }
 
 .reportsContainer {
     background-color: rgb(111, 111, 111);
+    padding: 1.3em;
+    border-radius: 12px;
+    margin: 3%;
+    width: 32%;
+}
+
+.left-right-sides {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  /* flex: .5; */
+  width: 100%;
+}
+
+nav {
+  display: flex;
+  gap: 1em;
+  background-color: #f4f4f4;
+  border-radius: 12px;
+  margin: 2%;
+}
+
+.nav {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav.active {
+  background-color: #ffd900;
+  color: #333;
 }

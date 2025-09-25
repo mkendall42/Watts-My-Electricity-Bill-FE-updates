@@ -33,42 +33,49 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
       });
   };
 
+  //NOTES: this could use some reorganizing.  Things to do:
+  //(DONE) 1. Change to basic correct nav rending / consistency with other pages
+  //2. Remove double-rendering (I think?) of ResultsContainer
+  //3. Maybe - build a new component for ReportsContainer (since it's getting unwieldy already...)
+
   return (
     <div className="user-reports">
-        <div className='left-side'>
-            <nav>
-                <NavLink to={`/user/${user}`} end className="nav">Search</NavLink>
-                <NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
-                <NavLink to="/" className="nav">Log out</NavLink>
-            </nav>
+      <nav>
+        <NavLink to={`/user/${user}`} end className="nav">Search</NavLink>
+        <NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
+        <NavLink to="/" className="nav">Log out</NavLink>
+      </nav>
 
-        <div className="user-content">
-            {isSearchPage && (
+      <div className="left-right-sides">
+        {/* <div className="user-content"> */}
+          {isSearchPage && (
             <>
-                <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
-                <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+              <SearchContainer user={user} setResults={setResults} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
+              {/* <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} /> */}
             </>
-            )}
+          )}
 
-        {isSavedPage && (
-          <div className='reportsContainer'>
-            <h2>User ID {user}'s Reports</h2>
-            <div className='buttonList'>
-              {reports.length > 0 ? (
-                reports.map((report) => (
-                  <button key={report.id} onClick={() => fetchReportInfo(report.id)}>
-                    {report.nickname}
-                  </button>
-                ))
-              ) : (
-                <p>No saved reports.</p>
-              )}
+          {isSavedPage && (
+            <div className='reportsContainer'>
+              <h2>User ID {user}'s Reports</h2>
+              <div className='buttonList'>
+                {reports.length > 0 ? (
+                  reports.map((report) => (
+                    <button key={report.id} onClick={() => fetchReportInfo(report.id)}>
+                      {report.nickname}
+                    </button>
+                  ))
+                ) : (
+                  <p>No saved reports.</p>
+                )}
+              </div>
             </div>
-          </div>
-    )}
-        </div>
+          )}
+          {/* </div> */}
+        {/* </div> */}
+
+        <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
       </div>
-    <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
     </div>
   );
 };

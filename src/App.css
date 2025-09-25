@@ -5,10 +5,6 @@
   align-items: center;
 }
 
-/* .nav {
-  width: 30%;
-} */
-
 .active {
   background-color: #841983;
   height: 100%;
@@ -27,8 +23,16 @@ h1 {
   padding: 0.5em;
 }
 
-/* All nav menu items are grouped here now; overrides can be implemented in sub-files */
+/* This is used on all major routes, so it seems sensical to just have it here... */
+.left-right-sides {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 100%;
+}
 
+/* All nav menu items are grouped here now; overrides can be implemented in sub-files */
 nav {
   display: flex;
   flex-direction: row;
@@ -38,19 +42,9 @@ nav {
   gap: 0.5em;
   font-size: 1.5em;
   /* justify-content: space-around; */
-  /* padding: 1%; */
   margin: 1%;
   width: 45vw;    /*NOTE: arbitrarily set for now due to WEIRD BUG.  Return later?*/
 }
-
-/* nav {
-  display: flex;
-  gap: 1em;
-  background-color: #f4f4f4;
-  border-radius: 12px;
-  padding: 0.4em 1em;
-  margin: 2%;
-} */
 
 .nav-item {
   text-decoration: none;
@@ -59,30 +53,11 @@ nav {
   border-radius: 12px;
   padding: 0.4em 1em;
   margin: 1%;
-  /* flex: 1; */
   white-space: nowrap;
+  /*NOTE: could experiment with flex: 1 and related properties too re bug later*/
 }
 
 .nav-item.active {
   background-color: #ffd900;
   color: #333;
 }
-
-/* .nav {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.nav.active {
-  background-color: #ffd900;
-  color: #333;
-} */
-
-/* .nav { */
-  /* text-decoration: none; */
-  /* color: #333; */
-  /* font-weight: bold; */
-  /* padding: 0.4em 1em; */
-  /* border-radius: 8px; */
-/* } */

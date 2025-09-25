@@ -10,35 +10,3 @@
     width: 90vw;
     padding: 1em;
 }
-
-.left-right-sides {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-around;
-  /* flex: .5; */
-  width: 100%;
-}
-
-.ResultsContainer {
-  flex: 2;
-}
-/* 
-nav {
-  display: flex;
-  gap: 1em;
-  background-color: #f4f4f4;
-  border-radius: 12px;
-  margin: 2%;
-}
-
-.nav {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.nav.active {
-  background-color: #ffd900;
-  color: #333;
-} */

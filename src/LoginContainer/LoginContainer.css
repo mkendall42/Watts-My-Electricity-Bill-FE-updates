@@ -1,6 +1,5 @@
-/* Make a ghosted button, maybe with a different cursor even */
-
 .button-disabled {
+  /* Make a ghosted button, maybe with a different cursor even */
     background-color: gray;
 }
 
@@ -22,22 +21,7 @@
     background-color: #f4f4f4;
     border-radius: 12px;
     padding: 0.5em 1em;
-  }
-  
-  /* NOTE: this seems to be getting incorporated on other pages too.  Just centralize!!! */
-/* 
-  .nav {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    padding: 0.4em 1em;
-    border-radius: 8px;
-  }
-  
-  .nav.active {
-    background-color: #ffd900;
-    color: #333;
-  } */
+}
 
 .loginInfo {
     display: flex;

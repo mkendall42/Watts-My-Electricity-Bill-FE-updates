@@ -9,8 +9,8 @@ function HomeContainer({ user, results, setResults, isNewSearch, setIsNewSearch 
 		<div className='HomeContainer'>
 			{/* <div className="left-side"> */}
 			<nav>
-				<NavLink to="/" className="nav">Search</NavLink>
-				<NavLink to="/login" className="nav">Login</NavLink>
+				<NavLink to="/" className="nav-item">Search</NavLink>
+				<NavLink to="/login" className="nav-item">Login</NavLink>
 			</nav>
 
 			<div className="left-right-sides">

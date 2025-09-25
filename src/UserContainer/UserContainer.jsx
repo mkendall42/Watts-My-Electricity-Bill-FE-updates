@@ -33,11 +33,13 @@ const UserContainer = ({ results, user,  setResults, isNewSearch, setIsNewSearch
 		<div className='UserContainer'>
 			{/* <div className="left-side"> */}
 			<nav>
+				{/* <div className="nav-bar"> */}
 				{/* <NavLink to="/" className="nav">Search</NavLink>
 				<NavLink to="/login" className="nav">Login</NavLink> */}
-				<NavLink to={`/user/${user}`} className="nav">Search</NavLink>
-				<NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
-				<Link to="/" className="nav">Log out</Link>
+				<NavLink to={`/user/${user}`} className="nav-item">Search</NavLink>
+				<NavLink to={`/user/${user}/saved`} className="nav-item">Saved Reports</NavLink>
+				<NavLink to="/" className="nav-item">Log out</NavLink>
+				{/* </div> */}
 			</nav>
 
 			<div className="left-right-sides">

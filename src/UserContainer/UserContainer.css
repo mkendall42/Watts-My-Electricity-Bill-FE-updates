@@ -23,7 +23,7 @@
 .ResultsContainer {
   flex: 2;
 }
-
+/* 
 nav {
   display: flex;
   gap: 1em;
@@ -41,4 +41,4 @@ nav {
 .nav.active {
   background-color: #ffd900;
   color: #333;
-}
+} */

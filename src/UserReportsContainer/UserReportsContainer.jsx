@@ -41,9 +41,9 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
   return (
     <div className="user-reports">
       <nav>
-        <NavLink to={`/user/${user}`} end className="nav">Search</NavLink>
-        <NavLink to={`/user/${user}/saved`} className="nav">Saved Reports</NavLink>
-        <NavLink to="/" className="nav">Log out</NavLink>
+        <NavLink to={`/user/${user}`} end className="nav-item">Search</NavLink>
+        <NavLink to={`/user/${user}/saved`} className="nav-item">Saved Reports</NavLink>
+        <NavLink to="/" className="nav-item">Log out</NavLink>
       </nav>
 
       <div className="left-right-sides">

@@ -40,7 +40,7 @@
   /* flex: .5; */
   width: 100%;
 }
-
+/* 
 nav {
   display: flex;
   gap: 1em;
@@ -58,4 +58,4 @@ nav {
 .nav.active {
   background-color: #ffd900;
   color: #333;
-}
+} */

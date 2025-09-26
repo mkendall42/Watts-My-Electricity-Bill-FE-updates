@@ -8,14 +8,15 @@ import LoginContainer from './LoginContainer/LoginContainer'
 import UserContainer from './UserContainer/UserContainer'
 
 function App() {
-	const [user, setUser] = useState('')
+	// const [user, setUser] = useState('')
+	const [user, setUser] = useState({})
 	const [results, setResults] = useState(null)
     const [isNewSearch, setIsNewSearch] = useState(false)
 
     const location = useLocation()
     useEffect(() => {
         if (location.pathname === "/") {
-            setUser('')
+            setUser({})
             setResults(null)
         }
     }, [location])

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import './UserReportsContainer.css';
 import ResultsContainer from '../ResultsContainer/ResultsContainer.jsx';
 import SearchContainer from '../SearchContainer/SearchContainer.jsx';
+import SavedReportsContainer from '../SavedReportsContainer/SavedReportsContainer.jsx';
 
 const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNewSearch }) => {
   const { user_id } = useParams();
@@ -69,6 +70,8 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
             </div>
           </div>
         )}
+
+        {isSavedPage && <SavedReportsContainer user={user} results={results} />}
 
         <ResultsContainer user={user} results={results} isNewSearch={isNewSearch} setIsNewSearch={setIsNewSearch} />
       </div>

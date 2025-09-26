@@ -10,11 +10,11 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
   const location = useLocation();
   const [reports, setReports] = useState([]);
 
-  const isSearchPage = location.pathname === `/user/${user}`;
-  const isSavedPage = location.pathname === `/user/${user}/saved`;
+  const isSearchPage = location.pathname === `/user/${user.id}`;
+  const isSavedPage = location.pathname === `/user/${user.id}/saved`;
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user}/reports`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user.id}/reports`)
       .then(res => res.json())
       .then(data => setReports(data))
       .catch(err => console.error('Error fetching reports:', err));
@@ -42,8 +42,8 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
   return (
     <div className="user-reports">
       <nav>
-        <NavLink to={`/user/${user}`} end className="nav-item">Search</NavLink>
-        <NavLink to={`/user/${user}/saved`} className="nav-item">Saved Reports</NavLink>
+        <NavLink to={`/user/${user.id}`} end className="nav-item">Search</NavLink>
+        <NavLink to={`/user/${user.id}/saved`} className="nav-item">Saved Reports</NavLink>
         <Link to="/" className="nav-item">Log out</Link>
       </nav>
 
@@ -56,7 +56,7 @@ const UserReportsContainer = ({ user, results, setResults, isNewSearch, setIsNew
 
         {isSavedPage && (
           <div className='reportsContainer'>
-            <h2>User ID {user}'s Reports</h2>
+            <h2>{user.name}'s Reports</h2>
             <div className='buttonList'>
               {reports.length > 0 ? (
                 reports.map((report) => (

@@ -8,8 +8,8 @@ const UserContainer = ({ results, user,  setResults, isNewSearch, setIsNewSearch
 	return (
 		<div className='UserContainer'>
 			<nav>
-				<NavLink to={`/user/${user}`} className="nav-item">Search</NavLink>
-				<NavLink to={`/user/${user}/saved`} className="nav-item">Saved Reports</NavLink>
+				<NavLink to={`/user/${user.id}`} className="nav-item">Search</NavLink>
+				<NavLink to={`/user/${user.id}/saved`} className="nav-item">Saved Reports</NavLink>
 				<Link to="/" className="nav-item">Log out</Link>
 			</nav>
 

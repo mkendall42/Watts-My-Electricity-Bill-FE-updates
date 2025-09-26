@@ -31,7 +31,8 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
     }
 
     useEffect(() => {
-        if (user === '') {
+        // if (user === '') {
+        if (Object.keys(user).length === 0) {
             setSaveButtonMessage("Login to save results")
         } else if (isNewSearch) {
             setSaveButtonMessage("Save these results!")
@@ -45,7 +46,7 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
             nickname: results.nickname,
             energy_consumption: results.energy_consumption,
             energy_cost: results.cost,
-            user_id: user,
+            user_id: user.id,
             state: results.state,
             state_residential_avg: results.state_average.residential,
             state_commercial_avg: results.state_average.commercial,
@@ -120,7 +121,8 @@ const ResultsContainer = ({ user, results, isNewSearch, setIsNewSearch }) => {
                         )}
                     </div>
                 </section>
-                {(isNewSearch && user !== '') ? (
+                {/* {(isNewSearch && user !== '') ? ( */}
+                {(isNewSearch && Object.keys(user).length !== 0) ? (
                     <button onClick={() => saveResults()}>{saveButtonMessage}</button>
                 ) : (
                     <button className="button-disabled" disabled={true}>

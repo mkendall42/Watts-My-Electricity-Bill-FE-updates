@@ -55,10 +55,11 @@ const LoginContainer = ({ user, setUser }) => {
         // console.log("Just to check, here is 'user': ", user)
         // // setUser(user)
 
-        setUser({name: selectedUser, id: findUserId(selectedUser)})
+        const userID = findUserId(selectedUser)
+        setUser({name: selectedUser, id: userID})
+        //For some reason, it doesn't seem like 'user' gets set immediately...?
         console.log(`Logging in user with name ${user.name} and ID ${user.id}`)
-        navigateToPage(`/user/${user.id}/saved`)
-
+        navigateToPage(`/user/${userID}/saved`)
       }
       
     const findUserId = (username) => {

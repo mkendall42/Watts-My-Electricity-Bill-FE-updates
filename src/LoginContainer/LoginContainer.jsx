@@ -58,7 +58,10 @@ const LoginContainer = ({ user, setUser }) => {
         const userID = findUserId(selectedUser)
         setUser({name: selectedUser, id: userID})
         //For some reason, it doesn't seem like 'user' gets set immediately...?
-        console.log(`Logging in user with name ${user.name} and ID ${user.id}`)
+        //Is this b/c user sent as a prop is only a copy of the actual state var or something?
+        //Or is there a small 'delay' of processing via the hook?
+        // console.log(`Logging in user with name ${user.name} and ID ${user.id}`)
+        console.log(`Logging in user with name ${selectedUser} and ID ${userID}`)
         navigateToPage(`/user/${userID}/saved`)
       }
       

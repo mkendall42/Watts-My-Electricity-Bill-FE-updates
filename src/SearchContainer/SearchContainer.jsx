@@ -12,8 +12,9 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 
   //If user is logged in, load all report nicknames for that user to have on hand for checking uniqueness upon form submission
   useEffect(() => {
-    if (user !== '') {
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user}/reports`)
+    // if (user !== '') {
+    if (Object.keys(user).length !== 0) {     //Must do this since objects are always by reference, ugh
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${user.id}/reports`)
         .then(res => res.json())
         .then(data => {
           console.log("Loading existing report nicknames")
@@ -32,7 +33,8 @@ const SearchContainer = ({ user, setResults, isNewSearch, setIsNewSearch }) => {
 
     setError("")
 
-    if (user !== '' && reportNicknames.includes(nickname)) {
+    // if (user !== '' && reportNicknames.includes(nickname)) {
+    if (Object.keys(user).length !== 0 && reportNicknames.includes(nickname)) {
       setError("Error: attempted duplicate nickname; try again!")
     } else if (zipcode.length !== 5) {
       setError("Error: Invalid zip code, try 5 digits!")

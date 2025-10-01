@@ -1,0 +1,56 @@
+/* .SavedReportsContainer {
+
+} */
+
+.user-reports {
+    display: flex;
+    background-color: rgb(210, 210, 210);
+    /* flex-direction: row; */
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    justify-content: space-around;
+    /* align-items: center; */
+    /* align-items: flex-start; */
+    align-items: center;
+    width: 35%;
+    padding: 1em;
+    margin: 3%;
+    border-radius: 12px;
+    
+}
+
+.reportsContainer {
+    background-color: rgb(111, 111, 111);
+    padding: 1.3em;
+    border-radius: 12px;
+    margin: 3%;
+    width: 32%;
+}
+
+.button-list {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: 50vh;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    align-items: flex-start;
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: #000000; */
+}
+
+.report-button {
+    padding: 0.7em 1.5em;
+    margin: 0.5em 0.5em;
+    text-align: left;
+    max-width: 60%;
+}
+
+/* This extra nesting is necessary to work correctly with Chrome (at least) */
+.report-button-text {
+    display: block;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}

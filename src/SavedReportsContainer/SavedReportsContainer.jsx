@@ -1,4 +1,5 @@
 import './SavedReportsContainer.css'
+import SavedReportContainer from '../SavedReportContainer/SavedReportContainer'
 import { useState, useEffect } from 'react'
 
 const SavedReportsContainer = ({ user, results, setResults, isNewSearch, setIsNewSearch }) => {
@@ -31,14 +32,7 @@ const SavedReportsContainer = ({ user, results, setResults, isNewSearch, setIsNe
             <div className='button-list'>
               {reports.length > 0 ? (
                 reports.map((report) => (
-                  <button key={report.id} className="report-button" onClick={() => fetchReportInfo(report.id)}>
-                    <span className="report-button-text">
-                        {report.nickname}
-                    </span>
-                    {/* <span class="material-symbols-outlined">
-                        edit
-                    </span> */}
-                  </button>
+                    <SavedReportContainer key={report.id} report={report} fetchReportInfo={fetchReportInfo} />
                 ))
               ) : (
                 <p>No saved reports.</p>
